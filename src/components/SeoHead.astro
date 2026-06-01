@@ -7,9 +7,19 @@ interface Props {
   ogDescription?: string;
   ogType?: string;
   ogUrl?: string;
+  robots?: string;
 }
 
-const { title, description, canonical, ogTitle, ogDescription, ogType, ogUrl } = Astro.props;
+const {
+  title,
+  description,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogType,
+  ogUrl,
+  robots = "index, follow",
+} = Astro.props;
 ---
 
 <title>{title}</title>
@@ -23,5 +33,5 @@ const { title, description, canonical, ogTitle, ogDescription, ogType, ogUrl } =
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={ogTitle || title} />
 <meta name="twitter:description" content={ogDescription || description} />
-<meta name="robots" content="index, follow" />
+<meta name="robots" content={robots} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
