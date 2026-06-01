@@ -1,0 +1,791 @@
+---
+import Layout from '../components/Layout.astro';
+import CTABox from '../components/CTABox.astro';
+import ClusterCard from '../components/ClusterCard.astro';
+import ResourceCard from '../components/ResourceCard.astro';
+import FAQJsonLd from '../components/FAQJsonLd.astro';
+import BreadcrumbJsonLd from '../components/BreadcrumbJsonLd.astro';
+import { site } from '../data/site';
+
+const homepageBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://aiapiradar.com/"
+    }
+  ]
+};
+
+const homepageFAQs = [
+  {
+    question: "AI API 雷达是 LinkAI 官方站吗？",
+    answer: "不是。它是独立中文引流站，会自然导向 AI API Doctor 和 LinkAI 小额测试。"
+  },
+  {
+    question: "为什么不直接做 MCP 百科？",
+    answer: "MCP 是入口，但第一阶段更要解决 Claude Code、Base URL 和检测转化。"
+  },
+  {
+    question: "AI API Doctor 能保证安全吗？",
+    answer: "不能。检测结果只用于辅助判断，不等于绝对安全结论。"
+  },
+  {
+    question: "请求失败一定会扣费吗？",
+    answer: "不能一概而论，需要结合 request_id、usage、raw quota、completion_tokens、stream 状态和后台记录综合判断。"
+  },
+  {
+    question: "什么时候查看 LinkAI 模型价格？",
+    answer: "当你已经知道要测试的模型和客户端时，可以先看模型价格，再用小额任务验证配置是否适合。"
+  }
+];
+
+const homepageFAQSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": homepageFAQs.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+---
+
+<Layout
+  title="AI API 雷达：模型 API、MCP、Base URL 与扣费透明指南"
+  description="AI API 雷达帮助国内开发者理解 Claude Code 中转、OpenAI Base URL、MCP 配置、/v1/models、usage 扣费透明和 API 中转安全，先检测再小额测试。"
+  canonical="https://aiapiradar.com/"
+>
+  <BreadcrumbJsonLd items={[{ name: '首页', href: '/' }]} />
+  <script type="application/ld+json" set:html={JSON.stringify(homepageFAQSchema)} />
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <span class="hero-tag">
+            Claude Code · Base URL · MCP · Usage
+          </span>
+
+          <h1 class="hero-h1">
+            AI API 雷达：模型 API、MCP、Base URL 与扣费透明指南
+          </h1>
+
+          <div class="hero-ctas">
+            <a href={site.aiApiDoctorUrl} class="btn btn-primary" target="_blank" rel="noopener">
+              去 AI API Doctor 检测
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+            <a href={site.linkAIRegisterUrl} class="btn btn-secondary" target="_blank" rel="noopener">
+              注册 LinkAI，领取 $2 免费福利
+            </a>
+            <a href={site.linkAIModelPricingUrl} class="btn btn-accent" target="_blank" rel="noopener">
+              查看 LinkAI 模型价格
+            </a>
+          </div>
+
+          <div class="hero-chips">
+            <span class="chip">Claude Code 中转</span>
+            <span class="chip">OpenAI Base URL</span>
+            <span class="chip">/v1/models</span>
+            <span class="chip">API 中转安全</span>
+          </div>
+        </div>
+
+        <div class="hero-radar" aria-hidden="true">
+          <div class="radar-ring radar-ring-1"></div>
+          <div class="radar-ring radar-ring-2"></div>
+          <div class="radar-ring radar-ring-3"></div>
+          <div class="radar-center">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="6" stroke-dasharray="3 2"/>
+              <circle cx="12" cy="12" r="2.5" fill="white"/>
+            </svg>
+          </div>
+          <div class="radar-sweep"></div>
+          <div class="radar-items">
+            <span class="radar-label rl-t">Base URL：待检测</span>
+            <span class="radar-label rl-b">/v1/models：确认可见</span>
+            <span class="radar-label rl-l">Usage：辅助判断</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Cards -->
+  <section class="section">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <h3 class="problem-title">Claude Code 中转</h3>
+          <p class="problem-desc">Base URL、API Key、模型名、timeout 一次排查。</p>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+          </div>
+          <h3 class="problem-title">Base URL /v1</h3>
+          <p class="problem-desc">搞清 endpoint、/v1/models 和 model id 的关系。</p>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <h3 class="problem-title">MCP API Key</h3>
+          <p class="problem-desc">配置前先看权限、环境变量和 server 风险。</p>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h3 class="problem-title">Usage 与扣费</h3>
+          <p class="problem-desc">结合 usage、raw quota、stream 状态综合判断。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Line -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="mainline-box">
+        <div class="mainline-header">
+          <span class="section-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+            第一版主线
+          </span>
+          <h2 class="section-title" style="margin-bottom: 0;">从正在报错的配置开始，而不是先做百科。</h2>
+        </div>
+        <p class="mainline-desc">
+          首页优先承接 Claude Code 中转、Base URL、API 检测和小额测试；MCP 与模型 API 作为第二层流量入口。
+        </p>
+
+        <div class="mainline-links">
+          <a href="/claude-code-zhongzhuan/" class="mainline-link">
+            <span class="mainline-link-tag">转化主线</span>
+            <span class="mainline-link-title">Claude Code 中转怎么配置？</span>
+            <svg class="mainline-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="/openai-api-base-url/" class="mainline-link">
+            <span class="mainline-link-tag">配置骨架</span>
+            <span class="mainline-link-title">OpenAI API Base URL 是什么？</span>
+            <svg class="mainline-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="/api-zhongzhuan-safe/" class="mainline-link">
+            <span class="mainline-link-tag">风险验货</span>
+            <span class="mainline-link-title">API 中转站安全吗？</span>
+            <svg class="mainline-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="/mcp-shi-shenme/" class="mainline-link">
+            <span class="mainline-link-tag">流量入口</span>
+            <span class="mainline-link-title">MCP 是什么？</span>
+            <svg class="mainline-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="/v1-models/" class="mainline-link">
+            <span class="mainline-link-tag">模型权限</span>
+            <span class="mainline-link-title">/v1/models 能检查什么？</span>
+            <svg class="mainline-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 Clusters -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="clusters-header">
+        <span class="section-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          内容分类
+        </span>
+        <h2 class="section-title">四个内容 cluster</h2>
+        <p class="section-desc">按问题场景组织，不按模型字典排列。</p>
+      </div>
+
+      <div class="clusters-grid">
+        <div class="cluster-section">
+          <h3 class="cluster-section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+            Claude Code
+          </h3>
+          <p class="cluster-section-desc">中转、国内使用、503/524、timeout。</p>
+          <div class="cluster-links">
+            <a href="/claude-code-zhongzhuan/">中转</a>
+            <a href="/claude-code-api-key/">API Key</a>
+            <a href="/claude-code-base-url/">Base URL</a>
+            <a href="/claude-code-guonei/">国内</a>
+            <a href="/claude-code-timeout-503-524/">Timeout</a>
+          </div>
+        </div>
+
+        <div class="cluster-section">
+          <h3 class="cluster-section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+            OpenAI-compatible
+          </h3>
+          <p class="cluster-section-desc">Base URL、/v1/models、模型名填写。</p>
+          <div class="cluster-links">
+            <a href="/openai-api-base-url/">Base URL</a>
+            <a href="/openai-compatible-api/">Compatible API</a>
+            <a href="/v1-models/">/v1/models</a>
+          </div>
+        </div>
+
+        <div class="cluster-section">
+          <h3 class="cluster-section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+            MCP
+          </h3>
+          <p class="cluster-section-desc">Cursor、Claude Desktop、Cline 的 MCP 配置和安全。</p>
+          <div class="cluster-links">
+            <a href="/mcp-shi-shenme/">MCP 是什么</a>
+            <a href="/cursor-mcp/">Cursor MCP</a>
+            <a href="/claude-desktop-mcp/">Claude Desktop</a>
+            <a href="/mcp-security/">MCP 安全</a>
+          </div>
+        </div>
+
+        <div class="cluster-section">
+          <h3 class="cluster-section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            Usage / Risk
+          </h3>
+          <p class="cluster-section-desc">请求失败、tool call、stream 中断、API 中转风险。</p>
+          <div class="cluster-links">
+            <a href="/openai-api-usage/">Usage</a>
+            <a href="/api-zhongzhuan-safe/">中转安全</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <CTABox
+    heading="不确定 API 能不能跑？先别直接接进长任务。"
+    description="先检测 Base URL、API Key、模型权限和 usage 信号；确认基础可用后，再用小额预算测试 Claude Code、Cursor 或 Cline。"
+  />
+
+  <!-- LinkAI Resources -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        LinkAI 入口
+      </span>
+      <h2 class="section-title">准备小额测试？这些入口可能用得上</h2>
+
+      <div class="resources-grid">
+        <ResourceCard
+          title="查看模型价格"
+          url="https://api1.link-ai.cc/pricing"
+          description="先看模型价格和可用模型，再决定是否注册测试。"
+        />
+        <ResourceCard
+          title="注册 LinkAI"
+          url="https://api1.link-ai.cc/register"
+          description="注册后领取 $2 免费福利，用小额任务验证配置。"
+        />
+        <ResourceCard
+          title="登录控制台"
+          url="https://api1.link-ai.cc/login"
+          description="已有账号可以直接登录查看余额、模型和使用记录。"
+        />
+        <ResourceCard
+          title="LinkAI 主页"
+          url="https://link-ai.cc/"
+          description="了解 LinkAI 的产品入口和服务说明。"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" style="padding-top: 0; background: var(--surface);">
+    <div class="container">
+      <span class="section-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        常见问题
+      </span>
+      <h2 class="section-title">FAQ</h2>
+
+      <div class="faq-list">
+        {homepageFAQs.map(item => (
+          <div class="faq-item">
+            <div class="faq-q">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:6px;color:var(--accent)">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              {item.question}
+            </div>
+            <div class="faq-a">{item.answer}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    padding: 64px 0;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-h1 {
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Radar */
+  .hero-radar {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    flex-shrink: 0;
+  }
+
+  .radar-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-border);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .radar-ring-1 { width: 80px; height: 80px; }
+  .radar-ring-2 { width: 150px; height: 150px; border-style: dashed; }
+  .radar-ring-3 { width: 220px; height: 220px; opacity: 0.4; }
+
+  .radar-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 32px rgba(37, 99, 235, 0.35);
+    z-index: 2;
+  }
+
+  .radar-sweep {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(37, 99, 235, 0.07) 50deg, transparent 100deg);
+    animation: sweep 5s linear infinite;
+  }
+
+  @keyframes sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .radar-items {
+    position: absolute;
+    inset: 0;
+  }
+
+  .radar-label {
+    position: absolute;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted-soft);
+    white-space: nowrap;
+    background: var(--bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .rl-t { top: 2px; left: 50%; transform: translateX(-50%); }
+  .rl-b { bottom: 2px; left: 50%; transform: translateX(-50%); }
+  .rl-l { left: -8px; top: 50%; transform: translateY(-50%); }
+
+  /* Problem cards */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .problem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    transition: all 0.2s ease;
+  }
+
+  .problem-card:hover {
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow-card);
+  }
+
+  .problem-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-soft);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .problem-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .problem-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Main line */
+  .mainline-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    padding: 36px;
+  }
+
+  .mainline-header {
+    margin-bottom: 12px;
+  }
+
+  .mainline-desc {
+    font-size: 16px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.7;
+  }
+
+  .mainline-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mainline-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+  }
+
+  .mainline-link:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent-border);
+  }
+
+  .mainline-link-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 8px;
+    border-radius: 100px;
+    white-space: nowrap;
+    border: 1px solid var(--accent-border);
+    flex-shrink: 0;
+  }
+
+  .mainline-link-title {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .mainline-link-arrow {
+    color: var(--muted-soft);
+    opacity: 0;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .mainline-link:hover .mainline-link-arrow {
+    opacity: 1;
+    color: var(--accent);
+    transform: translateX(2px);
+  }
+
+  /* Clusters */
+  .clusters-header {
+    margin-bottom: 32px;
+  }
+
+  .clusters-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .cluster-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+  }
+
+  .cluster-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .cluster-section-title svg {
+    color: var(--accent);
+  }
+
+  .cluster-section-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .cluster-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .cluster-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    transition: all 0.15s ease;
+  }
+
+  .cluster-links a:hover {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+  }
+
+  /* Resources */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  /* FAQ */
+  .faq-list {
+    max-width: 720px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-q {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .faq-a {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-left: 22px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-h1 {
+      font-size: 42px;
+    }
+
+    .problem-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .resources-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 40px 0;
+    }
+
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-radar {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+
+    .radar-ring-3 { width: 170px; height: 170px; }
+
+    .hero-h1 {
+      font-size: 36px;
+    }
+
+    .problem-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .clusters-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .resources-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .mainline-box {
+      padding: 24px;
+    }
+  }
+</style>

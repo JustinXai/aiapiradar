@@ -1,0 +1,197 @@
+---
+interface Props {
+  h1: string;
+  quickAnswer: string;
+  audience: string[];
+  primaryCTA: { label: string; url: string };
+  secondaryCTA: { label: string; url: string };
+  pricingCTA: { label: string; url: string };
+}
+
+const { h1, quickAnswer, audience, primaryCTA, secondaryCTA, pricingCTA } = Astro.props;
+---
+
+<div class="quick-answer-box">
+  <div class="container">
+    <div class="qa-inner">
+      <div class="qa-content">
+        <span class="section-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+          快速答案
+        </span>
+        <p class="qa-text">{quickAnswer}</p>
+
+        {audience.length > 0 && (
+          <div class="qa-audience">
+            <span class="qa-audience-label">适合：</span>
+            {audience.map((a, i) => (
+              <span>
+                {a}{i < audience.length - 1 ? ' · ' : ''}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div class="qa-buttons">
+          <a href={primaryCTA.url} class="btn btn-primary" target="_blank" rel="noopener">
+            {primaryCTA.label}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href={secondaryCTA.url} class="btn btn-secondary" target="_blank" rel="noopener">
+            {secondaryCTA.label}
+          </a>
+          <a href={pricingCTA.url} class="btn btn-accent" target="_blank" rel="noopener">
+            {pricingCTA.label}
+          </a>
+        </div>
+      </div>
+
+      <div class="radar-visual" aria-hidden="true">
+        <div class="radar-ring radar-ring-1"></div>
+        <div class="radar-ring radar-ring-2"></div>
+        <div class="radar-ring radar-ring-3"></div>
+        <div class="radar-center">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="6" stroke-dasharray="3 2"/>
+            <circle cx="12" cy="12" r="2.5" fill="white"/>
+          </svg>
+        </div>
+        <div class="radar-sweep"></div>
+        <div class="radar-items">
+          <span class="radar-item ri-1">Base URL</span>
+          <span class="radar-item ri-2">/v1/models</span>
+          <span class="radar-item ri-3">Usage</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .quick-answer-box {
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 0;
+  }
+
+  .qa-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .qa-text {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .qa-audience {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .qa-audience-label {
+    font-weight: 600;
+    color: var(--muted);
+    margin-right: 4px;
+  }
+
+  .qa-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Radar visual */
+  .radar-visual {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+  }
+
+  .radar-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-border);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .radar-ring-1 { width: 60px; height: 60px; }
+  .radar-ring-2 { width: 110px; height: 110px; border-style: dashed; }
+  .radar-ring-3 { width: 170px; height: 170px; opacity: 0.5; }
+
+  .radar-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 52px;
+    height: 52px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 24px rgba(37, 99, 235, 0.4);
+    z-index: 2;
+  }
+
+  .radar-sweep {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(37, 99, 235, 0.08) 60deg, transparent 120deg);
+    animation: sweep 4s linear infinite;
+  }
+
+  @keyframes sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .radar-items {
+    position: absolute;
+    inset: 0;
+  }
+
+  .radar-item {
+    position: absolute;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .ri-1 { top: 10px; left: 50%; transform: translateX(-50%); }
+  .ri-2 { bottom: 14px; right: 4px; }
+  .ri-3 { bottom: 14px; left: 8px; }
+
+  @media (max-width: 768px) {
+    .qa-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .radar-visual {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto;
+    }
+
+    .radar-ring-3 { width: 140px; height: 140px; }
+  }
+</style>

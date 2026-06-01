@@ -1,0 +1,51 @@
+---
+import SeoHead from './SeoHead.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: string;
+  ogUrl?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogType = 'article',
+  ogUrl,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogTitle={ogTitle || title}
+      ogDescription={ogDescription || description}
+      ogType={ogType}
+      ogUrl={ogUrl || canonical}
+    />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

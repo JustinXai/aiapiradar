@@ -1,0 +1,33 @@
+# AI API 雷达 / AI API Radar
+Site: https://aiapiradar.com
+Description: AI API 雷达是一个中文 AI API 配置与风险分诊站，覆盖 Claude Code 中转、OpenAI-compatible Base URL、MCP 配置安全、模型 API 入门、usage/扣费透明和 API 中转风险。帮助国内开发者理解 Claude Code 中转、Base URL、MCP、/v1/models、usage 扣费透明和 API 中转安全，先检测再小额测试。
+
+## Pages
+- 首页: https://aiapiradar.com/
+- Claude Code 中转怎么配置？: https://aiapiradar.com/claude-code-zhongzhuan/
+- OpenAI API Base URL 是什么？: https://aiapiradar.com/openai-api-base-url/
+- API 中转站安全吗？: https://aiapiradar.com/api-zhongzhuan-safe/
+- MCP 是什么？: https://aiapiradar.com/mcp-shi-shenme/
+- Cursor MCP 配置教程: https://aiapiradar.com/cursor-mcp/
+- Claude Desktop MCP 配置教程: https://aiapiradar.com/claude-desktop-mcp/
+- Cline MCP 配置教程: https://aiapiradar.com/cline-mcp/
+- ChatGPT MCP Server 配置教程: https://aiapiradar.com/chatgpt-mcp-server/
+- MCP API Key 安全配置指南: https://aiapiradar.com/mcp-api-key-anquan/
+- MCP 安全指南: https://aiapiradar.com/mcp-security/
+- Claude Code API Key 配置指南: https://aiapiradar.com/claude-code-api-key/
+- Claude Code Base URL 配置教程: https://aiapiradar.com/claude-code-base-url/
+- Claude Code 国内使用指南: https://aiapiradar.com/claude-code-guonei/
+- Claude Code Timeout / 503 / 524 错误排查: https://aiapiradar.com/claude-code-timeout-503-524/
+- OpenAI-compatible API 是什么？: https://aiapiradar.com/openai-compatible-api/
+- /v1/models 能检查什么？: https://aiapiradar.com/v1-models/
+- 通义千问 API 接入指南: https://aiapiradar.com/tongyi-qianwen-api/
+- Kimi API 接入指南: https://aiapiradar.com/kimi-api/
+- 豆包 API 接入指南: https://aiapiradar.com/doubao-api/
+- OpenAI API Usage 怎么看？: https://aiapiradar.com/openai-api-usage/
+
+## External Links
+- AI API Doctor (检测): https://aiapidoctor.com/
+- LinkAI 主页: https://link-ai.cc/
+- LinkAI 注册: https://api1.link-ai.cc/register
+- LinkAI 登录: https://api1.link-ai.cc/login
+- LinkAI 模型价格: https://api1.link-ai.cc/pricing

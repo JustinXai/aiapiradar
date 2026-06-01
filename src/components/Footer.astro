@@ -1,0 +1,154 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="#2563eb" stroke-width="2"/>
+            <circle cx="12" cy="12" r="6" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="3 2"/>
+            <circle cx="12" cy="12" r="2.5" fill="#2563eb"/>
+          </svg>
+          <span>{site.name}</span>
+        </a>
+        <p class="footer-tagline">
+          AI API 雷达是一个中文 AI API 配置与风险分诊站，帮助开发者检测配置、评估风险、先小额测试。
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>导航</h4>
+          <a href="/claude-code-zhongzhuan/">Claude Code 中转</a>
+          <a href="/openai-api-base-url/">Base URL 配置</a>
+          <a href="/mcp-shi-shenme/">MCP 是什么</a>
+          <a href="/openai-api-usage/">Usage 与扣费</a>
+        </div>
+        <div class="footer-col">
+          <h4>检测与测试</h4>
+          <a href="https://aiapidoctor.com/" target="_blank" rel="noopener">AI API Doctor</a>
+          <a href="https://api1.link-ai.cc/register" target="_blank" rel="noopener">注册 LinkAI</a>
+          <a href="https://api1.link-ai.cc/pricing" target="_blank" rel="noopener">模型价格</a>
+          <a href="https://api1.link-ai.cc/login" target="_blank" rel="noopener">登录 LinkAI</a>
+        </div>
+        <div class="footer-col">
+          <h4>LinkAI</h4>
+          <a href="https://link-ai.cc/" target="_blank" rel="noopener">LinkAI 主页</a>
+          <a href="https://api1.link-ai.cc/pricing" target="_blank" rel="noopener">查看价格</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {new Date().getFullYear()} {site.name}. 本站为独立引流站，不属于 LinkAI 官方。</p>
+      <p>先检测，再小额测试。</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 48px 0 32px;
+    margin-top: 64px;
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+    margin-bottom: 40px;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .footer-tagline {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 280px;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .footer-col h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+  }
+
+  .footer-col a {
+    display: block;
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.15s ease;
+  }
+
+  .footer-col a:hover {
+    color: var(--accent);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-bottom p {
+    font-size: 13px;
+    color: var(--muted-soft);
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .footer-links {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

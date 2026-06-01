@@ -1,0 +1,87 @@
+---
+interface BreadcrumbItem {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.href.startsWith('http')
+      ? item.href
+      : `https://aiapiradar.com${item.href}`
+  }))
+};
+---
+
+<nav class="breadcrumb" aria-label="面包屑导航">
+  <div class="container">
+    <ol class="breadcrumb-list">
+      {items.map((item, index) => (
+        <li class="breadcrumb-item">
+          {index > 0 && <span class="breadcrumb-sep">/</span>}
+          {index === items.length - 1 ? (
+            <span class="breadcrumb-current">{item.name}</span>
+          ) : (
+            <a href={item.href}>{item.name}</a>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+<style>
+  .breadcrumb {
+    padding: 16px 0;
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+  }
+
+  .breadcrumb-item a {
+    color: var(--muted-soft);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .breadcrumb-item a:hover {
+    color: var(--accent);
+  }
+
+  .breadcrumb-sep {
+    color: var(--border);
+    margin: 0 4px;
+  }
+
+  .breadcrumb-current {
+    color: var(--muted);
+    font-weight: 500;
+  }
+</style>

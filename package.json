@@ -1,0 +1,20 @@
+{
+  "name": "aiapiradar",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "generate:llms": "node scripts/generate-llms.mjs",
+    "validate:content": "node scripts/validate-content.mjs",
+    "validate:links": "node scripts/validate-links.mjs",
+    "verify": "node scripts/verify.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

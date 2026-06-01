@@ -1,0 +1,606 @@
+---
+import Layout from '../components/Layout.astro';
+import BreadcrumbJsonLd from '../components/BreadcrumbJsonLd.astro';
+import FAQJsonLd from '../components/FAQJsonLd.astro';
+import FAQJsonLdOnly from '../components/FAQJsonLdOnly.astro';
+import CTABox from '../components/CTABox.astro';
+import { pages } from '../data/pages';
+import type { PageData } from '../data/pages';
+
+export async function getStaticPaths() {
+  return pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+interface Props {
+  page: PageData;
+}
+
+const { page } = Astro.props;
+
+const breadcrumbItems = [
+  { name: '首页', href: '/' },
+  { name: page.h1, href: page.url },
+];
+---
+
+<Layout
+  title={page.title}
+  description={page.metaDescription}
+  canonical={page.canonical}
+  ogTitle={page.title}
+  ogDescription={page.metaDescription}
+  ogType="article"
+  ogUrl={page.canonical}
+>
+  <!-- Breadcrumb -->
+  <BreadcrumbJsonLd items={breadcrumbItems} />
+
+  <!-- Quick Answer -->
+  <section class="qa-section">
+    <div class="container">
+      <div class="qa-card">
+        <div class="qa-main">
+          <span class="section-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+            快速答案
+          </span>
+          <h1 class="qa-h1">{page.h1}</h1>
+          <p class="qa-text">{page.quickAnswer}</p>
+
+          {page.audience.length > 0 && (
+            <div class="qa-audience">
+              <strong>适合：</strong>
+              {page.audience.join(' · ')}
+            </div>
+          )}
+
+          <div class="qa-buttons">
+            <a href={page.primaryCTA.url} class="btn btn-primary" target="_blank" rel="noopener">
+              {page.primaryCTA.label}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+            <a href={page.secondaryCTA.url} class="btn btn-secondary" target="_blank" rel="noopener">
+              {page.secondaryCTA.label}
+            </a>
+            <a href={page.pricingCTA.url} class="btn btn-accent" target="_blank" rel="noopener">
+              {page.pricingCTA.label}
+            </a>
+          </div>
+        </div>
+
+        <div class="qa-radar" aria-hidden="true">
+          <div class="radar-ring radar-ring-1"></div>
+          <div class="radar-ring radar-ring-2"></div>
+          <div class="radar-ring radar-ring-3"></div>
+          <div class="radar-center">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="6" stroke-dasharray="3 2"/>
+              <circle cx="12" cy="12" r="2.5" fill="white"/>
+            </svg>
+          </div>
+          <div class="radar-sweep"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <div class="page-body">
+    <div class="container">
+      <div class="page-grid">
+        <article class="page-article">
+
+          <!-- Concept -->
+          <section class="content-section">
+            <h2 class="content-h2">这个概念/问题是什么</h2>
+            <div class="content-prose">
+              {page.conceptExplanation.split('\n\n').map(para => (
+                <p>{para}</p>
+              ))}
+            </div>
+          </section>
+
+          <!-- Steps -->
+          <section class="content-section">
+            <h2 class="content-h2">
+              {page.status === 'full' ? '配置或检查步骤' : '检查步骤'}
+            </h2>
+            <ol class="steps-list">
+              {page.setupOrCheckSteps.map((step, i) => (
+                <li class="step-item">
+                  <span class="step-num">{i + 1}</span>
+                  <span class="step-text">{step}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <!-- Common errors -->
+          {page.commonErrors.length > 0 && (
+            <section class="content-section">
+              <h2 class="content-h2">常见错误</h2>
+              <ul class="error-list">
+                {page.commonErrors.map(error => (
+                  <li class="error-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--accent);margin-top:2px">
+                      <circle cx="12" cy="12" r="10"/>
+                      <line x1="15" y1="9" x2="9" y2="15"/>
+                      <line x1="9" y1="9" x2="15" y2="15"/>
+                    </svg>
+                    <span>{error}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <!-- Risk notes -->
+          {page.riskNotes.length > 0 && (
+            <section class="content-section">
+              <h2 class="content-h2">安全 / 扣费 / 权限风险</h2>
+              <div class="risk-box">
+                <ul class="risk-list">
+                  {page.riskNotes.map(note => (
+                    <li class="risk-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:#d97706;margin-top:2px">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                      </svg>
+                      <span>{note}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          )}
+
+          <!-- When to use AI API Doctor -->
+          <section class="content-section">
+            <h2 class="content-h2">什么时候用 AI API Doctor 检测</h2>
+            <p class="content-text">{page.whenToUseAIApiDoctor}</p>
+          </section>
+
+          <!-- When to use LinkAI -->
+          <section class="content-section">
+            <h2 class="content-h2">什么时候用 LinkAI 小额测试</h2>
+            <p class="content-text">{page.whenToUseLinkAI}</p>
+          </section>
+
+          <!-- AI Summary -->
+          <section class="content-section">
+            <h2 class="content-h2">AI Summary</h2>
+            <div class="summary-box">
+              <p>{page.aiSummary}</p>
+            </div>
+          </section>
+
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="page-sidebar">
+          <!-- Related links -->
+          <div class="sidebar-card">
+            <h3 class="sidebar-card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+              相关链接
+            </h3>
+            <div class="related-links">
+              {page.relatedLinks.map(link => (
+                <a href={link.url} class="related-link">
+                  <span class="related-link-title">{link.title}</span>
+                  <span class="related-link-reason">{link.reason}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Sidebar CTA -->
+          <div class="sidebar-card sidebar-cta">
+            <h3 class="sidebar-card-title">准备测试？</h3>
+            <p class="sidebar-cta-text">先检测，再小额测试。</p>
+            <a href={page.primaryCTA.url} class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:8px" target="_blank" rel="noopener">
+              {page.primaryCTA.label}
+            </a>
+            <a href={page.secondaryCTA.url} class="btn btn-secondary" style="width:100%;justify-content:center;margin-bottom:8px" target="_blank" rel="noopener">
+              {page.secondaryCTA.label}
+            </a>
+            <a href={page.pricingCTA.url} class="btn btn-accent" style="width:100%;justify-content:center" target="_blank" rel="noopener">
+              {page.pricingCTA.label}
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ JSON-LD -->
+  <FAQJsonLdOnly faq={page.faq} />
+
+  <!-- FAQ visible content -->
+  <FAQJsonLd faq={page.faq} />
+
+  <!-- Bottom CTA -->
+  <CTABox />
+</Layout>
+
+<style>
+  /* QA Section */
+  .qa-section {
+    padding: 40px 0;
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .qa-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .qa-h1 {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .qa-text {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    max-width: 680px;
+  }
+
+  .qa-audience {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .qa-audience strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .qa-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Radar */
+  .qa-radar {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    flex-shrink: 0;
+  }
+
+  .radar-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-border);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .radar-ring-1 { width: 56px; height: 56px; }
+  .radar-ring-2 { width: 110px; height: 110px; border-style: dashed; }
+  .radar-ring-3 { width: 160px; height: 160px; opacity: 0.4; }
+
+  .radar-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+    z-index: 2;
+  }
+
+  .radar-sweep {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(37, 99, 235, 0.07) 50deg, transparent 100deg);
+    animation: sweep 4s linear infinite;
+  }
+
+  @keyframes sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Page body */
+  .page-body {
+    padding: 48px 0;
+  }
+
+  .page-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* Content */
+  .page-article {
+    min-width: 0;
+  }
+
+  .content-section {
+    margin-bottom: 40px;
+  }
+
+  .content-h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .content-prose {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .content-prose p {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .content-text {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* Steps */
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .step-text {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+    padding-top: 3px;
+  }
+
+  /* Errors */
+  .error-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .error-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  /* Risk */
+  .risk-box {
+    background: var(--warning-soft);
+    border: 1px solid #fde68a;
+    border-radius: var(--radius-xl);
+    padding: 20px;
+  }
+
+  .risk-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .risk-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Summary */
+  .summary-box {
+    background: var(--accent-soft);
+    border: 1.5px solid var(--accent-border);
+    border-radius: var(--radius-xl);
+    padding: 20px 24px;
+  }
+
+  .summary-box p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* Sidebar */
+  .page-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 84px;
+  }
+
+  .sidebar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 20px;
+  }
+
+  .sidebar-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .sidebar-card-title svg {
+    color: var(--accent);
+  }
+
+  .related-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .related-link {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+  }
+
+  .related-link:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent-border);
+  }
+
+  .related-link-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .related-link-reason {
+    font-size: 12px;
+    color: var(--muted-soft);
+    line-height: 1.4;
+  }
+
+  .sidebar-cta {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--accent-soft) 100%);
+  }
+
+  .sidebar-cta-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .sidebar-cta-text {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .page-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .page-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .qa-card {
+      grid-template-columns: 1fr;
+    }
+
+    .qa-radar {
+      display: none;
+    }
+
+    .qa-h1 {
+      font-size: 28px;
+    }
+
+    .page-sidebar {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

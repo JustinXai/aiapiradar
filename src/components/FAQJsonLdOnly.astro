@@ -1,0 +1,25 @@
+---
+import type { FAQItem } from '../data/pages';
+
+interface Props {
+  faq: FAQItem[];
+}
+
+const { faq } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+---
+
+<!-- This component renders JSON-LD only — use it in the page body (valid per schema.org) -->
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
