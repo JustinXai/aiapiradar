@@ -19,14 +19,20 @@ const pagesContent = readFileSync(join(rootDir, 'src', 'data', 'pages.ts'), 'utf
 const slugTitlePairs = [...pagesContent.matchAll(/slug: "([^"]+)"[\s\S]*?title: "([^"]+)"/g)]
   .map(m => ({ slug: m[1], title: m[2] }));
 
+// Homepage is not in pages.ts; add it manually as first entry
+const allPages = [
+  { slug: '', title: '首页' },
+  ...slugTitlePairs,
+];
+
 const lines = [
   `# ${site.name} / ${site.nameEn}`,
   `Site: ${site.baseUrl}`,
   `Description: ${siteDescription}`,
   ``,
   `## Pages`,
-  ...slugTitlePairs.map(p =>
-    `- ${p.title}: ${p.slug === "" ? site.baseUrl + "/" : site.baseUrl + "/" + p.slug + "/"}`
+  ...allPages.map(p =>
+    `- ${p.title}: ${p.slug === '' ? site.baseUrl + "/" : site.baseUrl + "/" + p.slug + "/"}`
   ),
   ``,
   `## External Links`,
@@ -39,4 +45,4 @@ const lines = [
 
 const outPath = join(rootDir, 'public', 'llms.txt');
 writeFileSync(outPath, lines, 'utf-8');
-console.log(`llms.txt generated: ${outPath} (${slugTitlePairs.length} pages)`);
+console.log(`llms.txt generated: ${outPath} (${allPages.length} pages)`);

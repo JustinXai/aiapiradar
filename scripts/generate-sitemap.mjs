@@ -19,9 +19,8 @@ const slugMatches = [...pagesContent.matchAll(/slug: "([^"]+)"/g)].map(m => m[1]
 const seen = new Set();
 const uniqueSlugs = slugMatches.filter(s => { if (seen.has(s)) return false; seen.add(s); return true; });
 
-const urls = uniqueSlugs.map(slug =>
-  slug === "" ? `${site.baseUrl}/` : `${site.baseUrl}/${slug}/`
-);
+// Always add homepage first, then all content slugs
+const urls = [`${site.baseUrl}/`, ...uniqueSlugs.map(slug => `${site.baseUrl}/${slug}/`)];
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

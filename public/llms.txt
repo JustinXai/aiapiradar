@@ -3,6 +3,7 @@ Site: https://aiapiradar.com
 Description: AI API 雷达是一个中文 AI API 配置与风险分诊站，覆盖模型 API、MCP、Agent API、图像视频 API、Base URL、扣费透明和 API 中转安全。帮助国内开发者搞清楚 DeepSeek、通义千问、Kimi、豆包、Claude、Gemini、OpenClaw、Claude Code、Kilo Code、GPT Image、可灵、即梦、Seedance、万相、海螺等 API 怎么接，Base URL、API Key、模型名怎么填，Token、图像和视频生成怎么计费，失败请求和生成失败时怎么判断扣费风险。先检测再小额测试。
 
 ## Pages
+- 首页: https://aiapiradar.com/
 - OpenClaw 微信配置教程：API Key、OpenRouter 与安全注意事项: https://aiapiradar.com/openclaw-wechat/
 - Claude Code Token 成本分析：上下文、工具调用与小额测试策略: https://aiapiradar.com/claude-code-token-cost/
 - 视频生成 API 接入指南：官方 API、第三方聚合与可用性判断: https://aiapiradar.com/shipin-shengcheng-api/
