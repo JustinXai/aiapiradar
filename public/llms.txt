@@ -1,29 +1,36 @@
 # AI API 雷达 / AI API Radar
 Site: https://aiapiradar.com
-Description: AI API 雷达是一个中文 AI API 配置与风险分诊站，覆盖 Claude Code 中转、OpenAI-compatible Base URL、MCP 配置安全、模型 API 入门、usage/扣费透明和 API 中转风险。帮助国内开发者理解 Claude Code 中转、Base URL、MCP、/v1/models、usage 扣费透明和 API 中转安全，先检测再小额测试。
+Description: AI API 雷达是一个中文 AI API 配置与风险分诊站，覆盖模型 API、MCP、Agent API、图像视频 API、Base URL、扣费透明和 API 中转安全。帮助国内开发者搞清楚 DeepSeek、通义千问、Kimi、豆包、Claude、Gemini、OpenClaw、Claude Code、Kilo Code、GPT Image、可灵、即梦、Seedance、万相、海螺等 API 怎么接，Base URL、API Key、模型名怎么填，Token、图像和视频生成怎么计费，失败请求和生成失败时怎么判断扣费风险。先检测再小额测试。
 
 ## Pages
-- 首页: https://aiapiradar.com/
-- Claude Code 中转怎么配置？: https://aiapiradar.com/claude-code-zhongzhuan/
-- OpenAI API Base URL 是什么？: https://aiapiradar.com/openai-api-base-url/
-- API 中转站安全吗？: https://aiapiradar.com/api-zhongzhuan-safe/
-- MCP 是什么？: https://aiapiradar.com/mcp-shi-shenme/
-- Cursor MCP 配置教程: https://aiapiradar.com/cursor-mcp/
-- Claude Desktop MCP 配置教程: https://aiapiradar.com/claude-desktop-mcp/
-- Cline MCP 配置教程: https://aiapiradar.com/cline-mcp/
-- ChatGPT MCP Server 配置教程: https://aiapiradar.com/chatgpt-mcp-server/
-- MCP API Key 安全配置指南: https://aiapiradar.com/mcp-api-key-anquan/
-- MCP 安全指南: https://aiapiradar.com/mcp-security/
-- Claude Code API Key 配置指南: https://aiapiradar.com/claude-code-api-key/
-- Claude Code Base URL 配置教程: https://aiapiradar.com/claude-code-base-url/
-- Claude Code 国内使用指南: https://aiapiradar.com/claude-code-guonei/
-- Claude Code Timeout / 503 / 524 错误排查: https://aiapiradar.com/claude-code-timeout-503-524/
-- OpenAI-compatible API 是什么？: https://aiapiradar.com/openai-compatible-api/
-- /v1/models 能检查什么？: https://aiapiradar.com/v1-models/
-- 通义千问 API 接入指南: https://aiapiradar.com/tongyi-qianwen-api/
-- Kimi API 接入指南: https://aiapiradar.com/kimi-api/
-- 豆包 API 接入指南: https://aiapiradar.com/doubao-api/
-- OpenAI API Usage 怎么看？: https://aiapiradar.com/openai-api-usage/
+- OpenClaw 微信配置教程：API Key、OpenRouter 与安全注意事项: https://aiapiradar.com/openclaw-wechat/
+- Claude Code Token 成本分析：上下文、工具调用与小额测试策略: https://aiapiradar.com/claude-code-token-cost/
+- 视频生成 API 接入指南：官方 API、第三方聚合与可用性判断: https://aiapiradar.com/shipin-shengcheng-api/
+- Claude Code 中转怎么用？Base URL、API Key 与模型权限检查: https://aiapiradar.com/claude-code-zhongzhuan/
+- OpenAI API Base URL 是什么？/v1、endpoint 与客户端配置说明: https://aiapiradar.com/openai-api-base-url/
+- API 中转站安全吗？Base URL、模型权限、扣费透明和风险检查清单: https://aiapiradar.com/api-zhongzhuan-safe/
+- OpenClaw 是什么？OpenRouter Agent 客户端简介与使用场景: https://aiapiradar.com/openclaw-shi-shenme/
+- OpenClaw API Key 配置与安全指南: https://aiapiradar.com/openclaw-api-key/
+- OpenClaw OpenRouter 使用方式：多模型聚合与 credits 计费: https://aiapiradar.com/openclaw-openrouter/
+- OpenClaw 安全指南：凭证保护、credits 风险与聊天权限: https://aiapiradar.com/openclaw-security/
+- Kilo Code 与 Cline 对比：VSCode AI 编程工具选型指南: https://aiapiradar.com/kilo-code-vs-cline/
+- Kilo Code OpenRouter 配置教程：多模型接入与成本管理: https://aiapiradar.com/kilo-code-openrouter/
+- Coding Agent Token 成本分析：多模型对比与成本优化策略: https://aiapiradar.com/coding-agent-token-cost/
+- 图生视频 API 接入指南：即梦、可灵、Seedance 与万相: https://aiapiradar.com/tushengshipin-api/
+- 即梦 API 接入指南：字节图像视频生成与 SDK 使用: https://aiapiradar.com/jimeng-api/
+- 可灵 API 接入指南：快手视频生成与计费方式: https://aiapiradar.com/keling-api/
+- GPT Image API 接入指南：DALL-E 与 OpenAI 图像生成: https://aiapiradar.com/gpt-image-api/
+- 图片生成 API 接入指南：官方 API、第三方聚合与可用性判断: https://aiapiradar.com/tupian-shengcheng-api/
+- MCP 是什么？模型上下文协议简介与常见配置场景: https://aiapiradar.com/mcp-shi-shenme/
+- Cursor MCP 配置教程：基础设置与安全注意事项: https://aiapiradar.com/cursor-mcp/
+- Claude Desktop MCP 配置教程：连接第三方工具: https://aiapiradar.com/claude-desktop-mcp/
+- Cline MCP 配置教程：扩展 AI 编程能力: https://aiapiradar.com/cline-mcp/
+- ChatGPT MCP Server 配置与使用教程: https://aiapiradar.com/chatgpt-mcp-server/
+- MCP API Key 安全配置指南：权限最小化与凭证保护: https://aiapiradar.com/mcp-api-key-anquan/
+- MCP 安全指南：Server 来源、数据隐私与风险控制: https://aiapiradar.com/mcp-security/
+- Claude Code API Key 配置与安全指南: https://aiapiradar.com/claude-code-api-key/
+- Claude Code Base URL 配置教程：API 地址填写指南: https://aiapiradar.com/claude-code-base-url/
+- /v1/models 能检查什么？模型列表、权限与 API 配置验证: https://aiapiradar.com/v1-models/
 
 ## External Links
 - AI API Doctor (检测): https://aiapidoctor.com/

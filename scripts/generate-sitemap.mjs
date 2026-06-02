@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -12,32 +12,14 @@ const site = {
   baseUrl: "https://aiapiradar.com",
 };
 
-// Page slugs (20 pages)
-const pageSlugs = [
-  "", // homepage
-  "claude-code-zhongzhuan",
-  "openai-api-base-url",
-  "api-zhongzhuan-safe",
-  "mcp-shi-shenme",
-  "cursor-mcp",
-  "claude-desktop-mcp",
-  "cline-mcp",
-  "chatgpt-mcp-server",
-  "mcp-api-key-anquan",
-  "mcp-security",
-  "claude-code-api-key",
-  "claude-code-base-url",
-  "claude-code-guonei",
-  "claude-code-timeout-503-524",
-  "openai-compatible-api",
-  "v1-models",
-  "tongyi-qianwen-api",
-  "kimi-api",
-  "doubao-api",
-  "openai-api-usage",
-];
+// Dynamically read slugs from pages.ts to avoid manual duplication
+const pagesContent = readFileSync(join(rootDir, 'src', 'data', 'pages.ts'), 'utf-8');
+const slugMatches = [...pagesContent.matchAll(/slug: "([^"]+)"/g)].map(m => m[1]);
+// Remove duplicates while preserving order
+const seen = new Set();
+const uniqueSlugs = slugMatches.filter(s => { if (seen.has(s)) return false; seen.add(s); return true; });
 
-const urls = pageSlugs.map(slug =>
+const urls = uniqueSlugs.map(slug =>
   slug === "" ? `${site.baseUrl}/` : `${site.baseUrl}/${slug}/`
 );
 

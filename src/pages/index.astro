@@ -23,24 +23,24 @@ const homepageBreadcrumbSchema = {
 const homepageFAQs = [
   {
     question: "AI API 雷达是 LinkAI 官方站吗？",
-    answer: "不是。它是独立中文引流站，会自然导向 AI API Doctor 和 LinkAI 小额测试。"
+    answer: "不是。它是独立中文引流站，会自然导向 AI API Doctor 和 LinkAI 小额测试。",
   },
   {
-    question: "为什么不直接做 MCP 百科？",
-    answer: "MCP 是入口，但第一阶段更要解决 Claude Code、Base URL 和检测转化。"
+    question: "为什么同时覆盖模型 API、MCP、Agent 和图像视频？",
+    answer: "国内开发者面对的 API 配置问题跨越多个领域：Claude Code 用 MCP，Cursor 用 Agent，图像生成用 API，中转安全贯穿所有场景。雷达站按问题场景组织内容，不按模型字典排列。",
   },
   {
     question: "AI API Doctor 能保证安全吗？",
-    answer: "不能。检测结果只用于辅助判断，不等于绝对安全结论。"
+    answer: "不能。检测结果只用于辅助判断，不等于绝对安全结论。",
   },
   {
     question: "请求失败一定会扣费吗？",
-    answer: "不能一概而论，需要结合 request_id、usage、raw quota、completion_tokens、stream 状态和后台记录综合判断。"
+    answer: "不能一概而论，需要结合 request_id、usage、raw quota、completion_tokens、stream 状态和后台记录综合判断。",
   },
   {
     question: "什么时候查看 LinkAI 模型价格？",
-    answer: "当你已经知道要测试的模型和客户端时，可以先看模型价格，再用小额任务验证配置是否适合。"
-  }
+    answer: "当你已经知道要测试的模型和客户端时，可以先看模型价格，再用小额任务验证配置是否适合。",
+  },
 ];
 
 const homepageFAQSchema = {
@@ -58,8 +58,8 @@ const homepageFAQSchema = {
 ---
 
 <Layout
-  title="AI API 雷达：模型 API、MCP、Base URL 与扣费透明指南"
-  description="AI API 雷达帮助国内开发者理解 Claude Code 中转、OpenAI Base URL、MCP 配置、/v1/models、usage 扣费透明和 API 中转安全，先检测再小额测试。"
+  title="AI API 雷达：模型 API、MCP、Agent、图像视频 API 与扣费透明指南"
+  description="AI API 雷达帮助国内开发者搞清楚 DeepSeek、通义千问、Kimi、豆包、Claude、Gemini、OpenClaw、Claude Code、Kilo Code、GPT Image、可灵、即梦、Seedance、万相、海螺等 API 怎么接，Base URL、API Key、模型名怎么填，Token、图像和视频生成怎么计费，失败请求和生成失败时怎么判断扣费风险。"
   canonical="https://aiapiradar.com/"
 >
   <BreadcrumbJsonLd items={[{ name: '首页', href: '/' }]} />
@@ -70,11 +70,11 @@ const homepageFAQSchema = {
       <div class="hero-inner">
         <div class="hero-content">
           <span class="hero-tag">
-            Claude Code · Base URL · MCP · Usage
+            模型 API · MCP · Agent · 图像视频 · 扣费透明
           </span>
 
           <h1 class="hero-h1">
-            AI API 雷达：模型 API、MCP、Base URL 与扣费透明指南
+            AI API 雷达：模型 API、MCP、Agent、图像视频 API 与扣费透明指南
           </h1>
 
           <div class="hero-ctas">
@@ -94,9 +94,11 @@ const homepageFAQSchema = {
 
           <div class="hero-chips">
             <span class="chip">Claude Code 中转</span>
-            <span class="chip">OpenAI Base URL</span>
-            <span class="chip">/v1/models</span>
-            <span class="chip">API 中转安全</span>
+            <span class="chip">MCP 配置</span>
+            <span class="chip">Agent API</span>
+            <span class="chip">图像视频 API</span>
+            <span class="chip">Base URL</span>
+            <span class="chip">扣费透明</span>
           </div>
         </div>
 
@@ -133,8 +135,8 @@ const homepageFAQSchema = {
               <polyline points="8 6 2 12 8 18"/>
             </svg>
           </div>
-          <h3 class="problem-title">Claude Code 中转</h3>
-          <p class="problem-desc">Base URL、API Key、模型名、timeout 一次排查。</p>
+          <h3 class="problem-title">模型 API 接入</h3>
+          <p class="problem-desc">DeepSeek、通义千问、Kimi、豆包、Claude 等模型怎么接。</p>
         </div>
 
         <div class="problem-card">
@@ -144,8 +146,8 @@ const homepageFAQSchema = {
               <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
             </svg>
           </div>
-          <h3 class="problem-title">Base URL /v1</h3>
-          <p class="problem-desc">搞清 endpoint、/v1/models 和 model id 的关系。</p>
+          <h3 class="problem-title">Base URL / API Key</h3>
+          <p class="problem-desc">搞清 endpoint、/v1/models、模型名填写和凭证安全。</p>
         </div>
 
         <div class="problem-card">
@@ -155,8 +157,8 @@ const homepageFAQSchema = {
               <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
             </svg>
           </div>
-          <h3 class="problem-title">MCP API Key</h3>
-          <p class="problem-desc">配置前先看权限、环境变量和 server 风险。</p>
+          <h3 class="problem-title">MCP / Agent 配置</h3>
+          <p class="problem-desc">Cursor、Claude Desktop、Cline、OpenClaw 的 MCP 和 Agent 配置与安全。</p>
         </div>
 
         <div class="problem-card">
@@ -166,73 +168,14 @@ const homepageFAQSchema = {
               <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
             </svg>
           </div>
-          <h3 class="problem-title">Usage 与扣费</h3>
-          <p class="problem-desc">结合 usage、raw quota、stream 状态综合判断。</p>
+          <h3 class="problem-title">扣费透明</h3>
+          <p class="problem-desc">Token 计费、图像视频计费、失败扣费判断与小额测试策略。</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Main Line -->
-  <section class="section" style="padding-top: 0;">
-    <div class="container">
-      <div class="mainline-box">
-        <div class="mainline-header">
-          <span class="section-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="22" y1="2" x2="11" y2="13"/>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-            </svg>
-            第一版主线
-          </span>
-          <h2 class="section-title" style="margin-bottom: 0;">从正在报错的配置开始，而不是先做百科。</h2>
-        </div>
-        <p class="mainline-desc">
-          首页优先承接 Claude Code 中转、Base URL、API 检测和小额测试；MCP 与模型 API 作为第二层流量入口。
-        </p>
-
-        <div class="mainline-links">
-          <a href="/claude-code-zhongzhuan/" class="mainline-link">
-            <span class="mainline-link-tag">转化主线</span>
-            <span class="mainline-link-title">Claude Code 中转怎么配置？</span>
-            <svg class="mainline-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-          <a href="/openai-api-base-url/" class="mainline-link">
-            <span class="mainline-link-tag">配置骨架</span>
-            <span class="mainline-link-title">OpenAI API Base URL 是什么？</span>
-            <svg class="mainline-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-          <a href="/api-zhongzhuan-safe/" class="mainline-link">
-            <span class="mainline-link-tag">风险验货</span>
-            <span class="mainline-link-title">API 中转站安全吗？</span>
-            <svg class="mainline-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-          <a href="/mcp-shi-shenme/" class="mainline-link">
-            <span class="mainline-link-tag">流量入口</span>
-            <span class="mainline-link-title">MCP 是什么？</span>
-            <svg class="mainline-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-          <a href="/v1-models/" class="mainline-link">
-            <span class="mainline-link-tag">模型权限</span>
-            <span class="mainline-link-title">/v1/models 能检查什么？</span>
-            <svg class="mainline-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4 Clusters -->
+  <!-- 6 Clusters -->
   <section class="section" style="padding-top: 0;">
     <div class="container">
       <div class="clusters-header">
@@ -245,26 +188,25 @@ const homepageFAQSchema = {
           </svg>
           内容分类
         </span>
-        <h2 class="section-title">四个内容 cluster</h2>
+        <h2 class="section-title">六个内容 cluster</h2>
         <p class="section-desc">按问题场景组织，不按模型字典排列。</p>
       </div>
 
-      <div class="clusters-grid">
+      <div class="clusters-grid" style="grid-template-columns: repeat(3, 1fr);">
         <div class="cluster-section">
           <h3 class="cluster-section-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="16 18 22 12 16 6"/>
               <polyline points="8 6 2 12 8 18"/>
             </svg>
-            Claude Code
+            模型 API
           </h3>
-          <p class="cluster-section-desc">中转、国内使用、503/524、timeout。</p>
+          <p class="cluster-section-desc">DeepSeek、通义千问、Kimi、豆包的接入配置与小额测试。</p>
           <div class="cluster-links">
-            <a href="/claude-code-zhongzhuan/">中转</a>
-            <a href="/claude-code-api-key/">API Key</a>
-            <a href="/claude-code-base-url/">Base URL</a>
-            <a href="/claude-code-guonei/">国内</a>
-            <a href="/claude-code-timeout-503-524/">Timeout</a>
+            <a href="/tongyi-qianwen-api/">通义千问</a>
+            <a href="/kimi-api/">Kimi</a>
+            <a href="/doubao-api/">豆包</a>
+            <a href="/v1-models/">/v1/models</a>
           </div>
         </div>
 
@@ -273,23 +215,6 @@ const homepageFAQSchema = {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
               <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-            </svg>
-            OpenAI-compatible
-          </h3>
-          <p class="cluster-section-desc">Base URL、/v1/models、模型名填写。</p>
-          <div class="cluster-links">
-            <a href="/openai-api-base-url/">Base URL</a>
-            <a href="/openai-compatible-api/">Compatible API</a>
-            <a href="/v1-models/">/v1/models</a>
-          </div>
-        </div>
-
-        <div class="cluster-section">
-          <h3 class="cluster-section-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-              <line x1="8" y1="21" x2="16" y2="21"/>
-              <line x1="12" y1="17" x2="12" y2="21"/>
             </svg>
             MCP
           </h3>
@@ -305,16 +230,70 @@ const homepageFAQSchema = {
         <div class="cluster-section">
           <h3 class="cluster-section-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+            Agent API
+          </h3>
+          <p class="cluster-section-desc">OpenClaw、Kilo Code、Claude Code Token 成本与安全配置。</p>
+          <div class="cluster-links">
+            <a href="/openclaw-wechat/">OpenClaw 微信</a>
+            <a href="/openclaw-shi-shenme/">OpenClaw 是什么</a>
+            <a href="/claude-code-token-cost/">Claude Code 成本</a>
+            <a href="/coding-agent-token-cost/">Agent Token 成本</a>
+          </div>
+        </div>
+
+        <div class="cluster-section">
+          <h3 class="cluster-section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="23 7 16 12 23 17 23 7"/>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+            </svg>
+            图像与视频 API
+          </h3>
+          <p class="cluster-section-desc">GPT Image、可灵、即梦、Seedance、万相、海螺的 API 接入与计费。</p>
+          <div class="cluster-links">
+            <a href="/shipin-shengcheng-api/">视频生成 API</a>
+            <a href="/tupian-shengcheng-api/">图片生成 API</a>
+            <a href="/gpt-image-api/">GPT Image</a>
+            <a href="/jimeng-api/">即梦</a>
+          </div>
+        </div>
+
+        <div class="cluster-section">
+          <h3 class="cluster-section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            Base URL / API Key
+          </h3>
+          <p class="cluster-section-desc">Claude Code 中转、OpenAI-compatible、Base URL 填写与凭证安全。</p>
+          <div class="cluster-links">
+            <a href="/claude-code-zhongzhuan/">Claude Code 中转</a>
+            <a href="/openai-api-base-url/">Base URL</a>
+            <a href="/openai-compatible-api/">Compatible API</a>
+            <a href="/api-zhongzhuan-safe/">中转安全</a>
+          </div>
+        </div>
+
+        <div class="cluster-section">
+          <h3 class="cluster-section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/>
               <line x1="12" y1="8" x2="12" y2="12"/>
               <line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            Usage / Risk
+            扣费透明
           </h3>
-          <p class="cluster-section-desc">请求失败、tool call、stream 中断、API 中转风险。</p>
+          <p class="cluster-section-desc">usage、Token 计费、图像视频计费、失败扣费判断。</p>
           <div class="cluster-links">
-            <a href="/openai-api-usage/">Usage</a>
+            <a href="/openai-api-usage/">Usage 怎么看</a>
             <a href="/api-zhongzhuan-safe/">中转安全</a>
+            <a href="/mcp-api-key-anquan/">API Key 安全</a>
           </div>
         </div>
       </div>
@@ -324,7 +303,7 @@ const homepageFAQSchema = {
   <!-- CTA Section -->
   <CTABox
     heading="不确定 API 能不能跑？先别直接接进长任务。"
-    description="先检测 Base URL、API Key、模型权限和 usage 信号；确认基础可用后，再用小额预算测试 Claude Code、Cursor 或 Cline。"
+    description="先检测 Base URL、API Key、模型权限和 usage 信号；确认基础可用后，再用小额预算测试 Agent、Claude Code、Cursor 或图像视频生成。"
   />
 
   <!-- LinkAI Resources -->
@@ -565,79 +544,6 @@ const homepageFAQSchema = {
     line-height: 1.6;
   }
 
-  /* Main line */
-  .mainline-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-2xl);
-    padding: 36px;
-  }
-
-  .mainline-header {
-    margin-bottom: 12px;
-  }
-
-  .mainline-desc {
-    font-size: 16px;
-    color: var(--muted);
-    margin-bottom: 28px;
-    line-height: 1.7;
-  }
-
-  .mainline-links {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .mainline-link {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: var(--radius-md);
-    text-decoration: none;
-    transition: all 0.15s ease;
-    border: 1px solid transparent;
-  }
-
-  .mainline-link:hover {
-    background: var(--accent-soft);
-    border-color: var(--accent-border);
-  }
-
-  .mainline-link-tag {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 3px 8px;
-    border-radius: 100px;
-    white-space: nowrap;
-    border: 1px solid var(--accent-border);
-    flex-shrink: 0;
-  }
-
-  .mainline-link-title {
-    flex: 1;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .mainline-link-arrow {
-    color: var(--muted-soft);
-    opacity: 0;
-    transition: all 0.15s ease;
-    flex-shrink: 0;
-  }
-
-  .mainline-link:hover .mainline-link-arrow {
-    opacity: 1;
-    color: var(--accent);
-    transform: translateX(2px);
-  }
-
   /* Clusters */
   .clusters-header {
     margin-bottom: 32px;
@@ -749,6 +655,10 @@ const homepageFAQSchema = {
     .resources-grid {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .clusters-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 768px) {
@@ -782,10 +692,6 @@ const homepageFAQSchema = {
 
     .resources-grid {
       grid-template-columns: 1fr;
-    }
-
-    .mainline-box {
-      padding: 24px;
     }
   }
 </style>

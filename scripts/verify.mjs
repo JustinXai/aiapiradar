@@ -52,10 +52,10 @@ if (!existsSync(sitemapPath)) {
   const sitemapContent = readFileSync(sitemapPath, 'utf-8');
   const urlCount = (sitemapContent.match(/<url>/g) || []).length;
   console.log(`\n=== sitemap check ===`);
-  console.log(`  sitemap.xml exists: OK (${urlCount} URLs)`);
-  if (urlCount !== 21) {
-    console.error(`  [WARN] Expected 21 URLs, got ${urlCount}`);
-  }
+    console.log(`  sitemap.xml exists: OK (${urlCount} URLs)`);
+    if (urlCount !== 28) {
+      console.error(`  [WARN] Expected 28 URLs, got ${urlCount}`);
+    }
 }
 
 // 6. Check llms.txt exists
@@ -126,11 +126,14 @@ if (!existsSync(distDir)) {
     }
   }
 
-  // Check 3 full pages
+  // Check 6 full pages
   const fullPages = [
     'claude-code-zhongzhuan/index.html',
     'openai-api-base-url/index.html',
     'api-zhongzhuan-safe/index.html',
+    'openclaw-wechat/index.html',
+    'claude-code-token-cost/index.html',
+    'shipin-shengcheng-api/index.html',
   ];
   for (const page of fullPages) {
     if (distFiles.includes(page)) {
