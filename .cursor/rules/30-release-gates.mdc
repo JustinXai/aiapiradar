@@ -1,0 +1,65 @@
+# Cursor Rules — AI API Radar Release Gates
+
+## Local Gates (Must Pass Before Push)
+Run and confirm all pass:
+```bash
+git status
+git log --oneline -3
+git rev-parse HEAD
+git ls-remote origin HEAD
+npm run verify
+npm run build
+npm run check:release
+```
+
+## Sitemap / LLMs Gates
+- sitemap.xml must contain homepage + all 28 content pages = 29 <loc>
+- llms.txt must contain homepage + all 28 content pages = 29 page entries
+- /404 must NOT appear in sitemap or llms.txt
+- sitemap and llms must be regenerated after any pages.ts change
+
+## Current URL Count (Source of Truth)
+- Homepage: https://aiapiradar.com/ (1)
+- Content pages: 28 slugs from pages.ts
+- Total public URLs: 29
+- 404 page: exists but excluded from sitemap/llms
+
+## CTA Gates (Full-Site, Not Sample)
+- All 29 public pages must include https://aiapidoctor.com/
+- All 29 public pages must include https://api1.link-ai.cc/register
+- Zero occurrences of #/register in any page
+- Zero occurrences of /tools/ in any page
+- CTA checks are never optional — must check all 29 pages
+
+## SEO Gates
+- All public pages: canonical = https://aiapiradar.com/[slug]/
+- All public pages: no noindex meta tag
+- Homepage: canonical = https://aiapiradar.com/
+- Homepage: no noindex meta tag
+
+## 404 Gates
+- Invalid routes must return HTTP 404 (real 404, not homepage 200)
+- 404 page must contain "页面未找到"
+- 404 page must have `<meta name="robots" content="noindex, follow">`
+- 404 page is excluded from sitemap and llms.txt
+
+## www Redirect Gate
+- https://www.aiapiradar.com/* must 301 to https://aiapiradar.com/[path]
+- Path and query string must be preserved through redirect
+- www domain must NOT return 200
+
+## Cloudflare Commit Gate
+- Cloudflare latest production commit MUST equal origin/main HEAD
+- "auto-deploying" does NOT equal "deployed"
+- Do not report production as updated until Cloudflare confirms deployment
+- If Cloudflare is on an old commit, do not retry old deployment — push trigger or fix properly
+
+## Forbidden Phrase Gate
+- Zero true hits for any forbidden phrase (see 10-content-rules.mdc)
+- Any forbidden hit must output: matched term + file/URL + 120-char context
+- CSS-only occurrences of "100%" do not count as forbidden content
+
+## GSC / Bing Submission Gate
+- Only submit after ALL production live checks pass
+- Only submit after Cloudflare latest production commit = origin/main
+- Verify sitemap and llms are live (not cached) before submitting

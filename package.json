@@ -9,7 +9,10 @@
     "generate:llms": "node scripts/generate-llms.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:links": "node scripts/validate-links.mjs",
-    "verify": "node scripts/verify.mjs"
+    "verify": "node scripts/verify.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "check:live": "powershell -File scripts/check-live.ps1",
+    "check:gsc-ready": "node scripts/check-gsc-ready.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0"

@@ -1,0 +1,60 @@
+# Cursor Rules — AI API Radar Content Rules
+
+## Content Structure Per Page
+Every public page must include:
+1. Quick Answer (one-sentence answer to the page's question)
+2. 适合谁 (who this page is for)
+3. 概念解释 (concept explanation)
+4. 检查步骤 (step-by-step verification checklist)
+5. 风险 (risk section — price, availability, security)
+6. AI Summary
+7. FAQ (minimum 2 questions)
+8. 内部链接 (internal links to related pages)
+9. Two CTAs:
+   - `https://aiapidoctor.com/`
+   - `https://api1.link-ai.cc/register`
+
+## Agent API Pages
+Agent pages (OpenClaw, Claude Code, Kilo Code, etc.) must explain:
+- API Key configuration and storage
+- Base URL / endpoint
+- OpenRouter aggregation and credits
+- Model name selection
+- HTTP error codes: 401 (auth), 403 (permission), 429 (rate limit)
+- model not found errors
+- Token cost estimation (input/output)
+- Security risks (credential exposure, credits drain)
+
+## Image and Video API Pages
+Must clearly distinguish:
+1. **Official API** — vendor's direct API endpoint
+2. **Third-party aggregation API** — proxy services like LinkAI
+3. **Product web page capabilities** — features only available through UI, not API
+4. **Current availability unknown** — clearly state when availability cannot be confirmed
+
+Must explain:
+- Async job submission vs sync request
+- Polling for job status
+- Webhook/callback registration
+- Timeout configuration
+- Retry on failure
+- Billing judgment when request fails
+
+## Price and Availability Rules
+- Always write: "以当前官方文档或服务商后台为准"
+- Always write: "先小额测试"
+- NEVER promise model availability
+- NEVER claim "所有模型都可用" or "必定可用"
+- NEVER use forbidden phrases (see 00-project-always.mdc)
+
+## Forbidden Content Phrases
+The following must never appear in any page content:
+- "LinkAI最便宜" / "保证稳定" / "官方替代" / "永久免费" / "不会扣费" (in promise context)
+- "100%安全" / "保证解决" / "全网最低" / "无限使用" / "免费无限"
+- "官方同款" / "零风险" / "必定可用" / "所有模型都可用"
+- "100%成功" / "失败一定不扣费"
+
+When checking for forbidden phrases:
+- Check complete risk phrases (e.g., "100% 安全"), NOT standalone "100%"
+- CSS `linear-gradient(... 100%)` is NOT forbidden content — only prose is checked
+- Output matched term + file/URL + 120-char context on any hit

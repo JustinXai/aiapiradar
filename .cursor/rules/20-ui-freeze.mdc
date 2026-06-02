@@ -1,0 +1,37 @@
+# Cursor Rules — AI API Radar UI Freeze
+
+## Default: Do Not Touch UI
+Changing visual appearance is FORBIDDEN by default. UI changes require explicit prior justification and user confirmation.
+
+## Explicitly Forbidden
+- Global CSS files or theme tokens
+- Header / Footer visual structure
+- CTA button styles or colors
+- 404 page visual design
+- Color palette, typography, spacing
+- Any new UI frameworks or animation libraries
+- Any new design system tokens
+
+## Explicitly Allowed
+- Adding new content/data to `src/data/pages.ts`
+- Adding new pages to `pages.ts` (with proper CTAs)
+- Updating text content within existing components (no style changes)
+- Reusing existing CSS classes/components for new content
+- Updating `src/pages/index.astro` text content (not visual structure)
+- Modifying sitemap/llms/robots scripts
+- Adding validation scripts
+- Updating metadata in existing components (title, description, H1 text)
+
+## If UI Change Is Absolutely Necessary
+1. Stop immediately
+2. Report the reason
+3. Get explicit user confirmation before proceeding
+4. Document the exception in the completion report
+
+## Layout Components
+- `src/components/Layout.astro` — data passthrough only, no visual changes
+- `src/components/SeoHead.astro` — extend for new meta fields only, do not break existing SEO basics
+- `src/components/CTA.astro` — data changes only, no style changes
+
+## What "UI Frozen" Means
+The site must look identical before and after any content/data changes. Only content text and page data may differ — colors, fonts, spacing, shadows, animations, layout structure must stay the same.

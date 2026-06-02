@@ -1,0 +1,67 @@
+# Cursor Rules — AI API Radar Project Always
+
+## Always Apply
+This rule always applies to every AI API Radar task. Read before touching any code.
+
+## Project Identity
+- **Project name**: AI API Radar / AI API 雷达
+- **Domain**: https://aiapiradar.com/
+- **Canonical**: https://aiapiradar.com/ (all pages)
+- **Tech**: Astro static site, Cloudflare Pages
+- **Repo**: https://github.com/JustinXai/aiapiradar
+
+## Positioning
+AI API Radar is a neutral Chinese SEO/GEO引流站 for AI API configuration guidance. It is NOT:
+- LinkAI official site
+- guides.link-ai.cc
+- aiapidoctor.com
+- any backend or database service
+
+## Site Division of Labor
+| Property | Role |
+|----------|------|
+| AI API Radar | Neutral Chinese SEO引流站 (this repo) |
+| guides.link-ai.cc | LinkAI official configuration docs |
+| aiapidoctor.com | Detection tool for Base URL, API Key, model permissions, usage/扣费 risk |
+| api1.link-ai.cc/register | Registration conversion page |
+
+## Required CTAs
+Every public page MUST include:
+- Detection CTA: `https://aiapidoctor.com/`
+- Registration CTA: `https://api1.link-ai.cc/register`
+- Registration copy: "注册 LinkAI，领取 $2 免费福利"
+
+## Hard Prohibitions
+- Do NOT pretend to be LinkAI official site
+- Do NOT copy content from guides.link-ai.cc
+- Do NOT create /tools/* pages
+- Do NOT add login, database, payment, or backend systems
+- Do NOT modify LinkAI properties (link-ai.cc, guides.link-ai.cc, docs.link-ai.cc, api1, api2)
+- Do NOT modify Cloudflare domain/redirect settings
+
+## Bootstrap Rule
+Before any task, read these files. If missing, report immediately.
+- AGENTS.md (root)
+- docs/PROJECT_MEMORY.md
+- docs/RELEASE_GATES.md
+- docs/HISTORICAL_BUGS.md
+- docs/CONTENT_RULES.md
+- .cursor/rules/00-project-always.mdc (this file)
+- .cursor/rules/30-release-gates.mdc
+
+## Completion Report Requirements
+Every completion report must include:
+- List of rule files read
+- Whether UI/CSS was changed (must be NO)
+- Whether business page content was changed (must be NO)
+- Whether `npm run verify` was run
+- Whether `npm run build` was run
+- Whether `check:release` was run
+- Whether production live check is needed
+- Whether GSC/Bing submission is allowed
+
+## Current State of Truth
+- Public URLs: 29 = homepage + 28 content pages
+- sitemap.xml: 29 <loc>, includes homepage, excludes /404
+- llms.txt: 29 pages, includes homepage, excludes /404
+- All 29 pages must pass CTA checks before any release

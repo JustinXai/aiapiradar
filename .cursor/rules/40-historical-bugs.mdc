@@ -1,0 +1,92 @@
+# Cursor Rules — AI API Radar Historical Bugs
+
+## Purpose
+These are real bugs that have occurred on this project. Every agent must know them to prevent regression.
+
+---
+
+## 1. Cloudflare Production Stayed on Old Commit
+**Problem**: GitHub main was pushed with new commits, but Cloudflare Pages production stayed on an old commit. The agent reported "auto-deploying" instead of confirming the actual deployed commit.
+
+**Detection**: Run `git ls-remote origin HEAD` and compare with Cloudflare Dashboard "latest production deployment" commit hash.
+
+**Fix**: Do not trust "auto-deploying". Wait for Cloudflare to confirm the deployment with the correct commit hash. If Cloudflare is stale, push a trigger commit to re-trigger deployment.
+
+**Rule**: Cloudflare latest production commit MUST equal `origin/main` HEAD. "auto-deploying" does not mean deployed.
+
+---
+
+## 2. Retry Old Deployment != Deploy Latest Main
+**Problem**: When Cloudflare production was behind, the user retried the old deployment via Cloudflare Dashboard, which made things worse.
+
+**Rule**: If Cloudflare production is on an old commit, do NOT click "Retry" on an old deployment. Push the correct commit to main or push an empty trigger commit.
+
+---
+
+## 3. Invalid Route Returned Homepage 200
+**Problem**: Cloudflare Pages SPA fallback served the homepage HTML (200 OK) for any invalid route, including non-existent pages.
+
+**Fix**: Created `src/pages/404.astro` to explicitly handle invalid routes. The page returns a real HTTP 404 through Cloudflare Pages 404 configuration.
+
+**Rule**: Any invalid URL must return a real HTTP 404. Do not serve homepage content for non-existent paths.
+
+---
+
+## 4. 404 Page Missing noindex
+**Problem**: Although `src/pages/404.astro` requested noindex in its frontmatter, the `Layout.astro` component was not passing the `robots` prop through to `SeoHead.astro`.
+
+**Detection**: Check the final rendered HTML in `dist/404.html`, not just the source `.astro` file.
+
+**Fix**: Modified `Layout.astro` to accept and pass through the `robots` prop to `SeoHead.astro`.
+
+**Rule**: When modifying SEO meta tags, always verify the final rendered HTML in `dist/`, not just source files.
+
+---
+
+## 5. Layout Not Passing robots Prop to SeoHead
+**Problem**: `Layout.astro` accepted a `robots` prop but never forwarded it to `SeoHead.astro`, causing noindex directives to be silently dropped.
+
+**Rule**: Any prop related to SEO meta (robots, title, description, canonical) must be traced through the full component chain: page -> Layout -> SeoHead.
+
+---
+
+## 6. sitemap.xml and llms.txt Missing Homepage
+**Problem**: Both `generate-sitemap.mjs` and `generate-llms.mjs` read slugs from `pages.ts`. Since the homepage has no slug in `pages.ts` (it's `src/pages/index.astro`, not a dynamic route), the homepage URL was never included.
+
+**Detection**: Sitemap had 28 <loc>, not 29. LLms.txt had 28 page entries, not 29. Homepage URL `https://aiapiradar.com/` was missing from both.
+
+**Fix**: Modified `generate-sitemap.mjs` to always prepend homepage URL. Modified `generate-llms.mjs` to add homepage as the first entry with `{slug:'', title:'首页'}`.
+
+**Rule**: Homepage is NOT in `pages.ts`. Always verify sitemap and llms include homepage separately.
+
+---
+
+## 7. CTA Only Checked 7 Pages
+**Problem**: The initial release report checked CTAs on only 7 pages (the full/sample pages), not all 29 public pages.
+
+**Rule**: CTA checks are NEVER optional or sample-based. Must check all 29 public pages. A report with CTA "抽查" (sample) is an incomplete report.
+
+---
+
+## 8. Forbidden Phrase False Positive: CSS 100%
+**Problem**: The forbidden phrase check flagged "100%" in CSS `linear-gradient(... 100%)` as a forbidden phrase match (false positive).
+
+**Fix**: Forbidden phrase checks only apply to prose content. Complete risk phrases are checked (e.g., "100% 安全"), not standalone substrings.
+
+**Rule**: When adding forbidden phrase checks, ensure they target complete risk phrases. Do not create patterns that match generic CSS values or numbers.
+
+---
+
+## 9. PowerShell Multiline H1 Regex False Positive
+**Problem**: PowerShell's `-match` operator with `.*?` regex failed to match H1 content that contained embedded newline characters, causing false negatives.
+
+**Fix**: Use robust string parsing methods (e.g., `String.IndexOf` + `Substring`) instead of fragile regex for HTML extraction in PowerShell scripts.
+
+**Rule**: When extracting HTML elements in PowerShell, prefer robust parsing over regex that may fail on multiline content.
+
+---
+
+## 10. www Redirect Returned 200 Instead of 301
+**Problem**: Before proper Cloudflare Pages configuration, `https://www.aiapiradar.com/` returned HTTP 200 (the homepage), not a 301 redirect to the apex domain.
+
+**Rule**: www subdomain must always 301 redirect to the apex domain, preserving path and query string. Verify with `curl -I https://www.aiapiradar.com/`.
