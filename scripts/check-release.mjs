@@ -85,30 +85,61 @@ if (!existsSync(llmsPath)) {
 }
 
 // ============================================================
-// 3. CTA checks (pages.ts data — all 28 pages)
+// 3. CTA checks (homepage + 28 pages = 29 public URLs)
 // ============================================================
-console.log('\n=== CTA (from pages.ts) ===');
-const pagesPath = join(rootDir, 'src', 'data', 'pages.ts');
-const pagesContent = readFileSync(pagesPath, 'utf-8');
-const slugMatches = [...pagesContent.matchAll(/slug: "([^"]+)"/g)].map(m => m[1]);
-console.log(`  Slugs in pages.ts: ${slugMatches.length}`);
+console.log('\n=== CTA (public URLs) ===');
+const pagesContentForCta = readFileSync(join(rootDir, 'src', 'data', 'pages.ts'), 'utf-8');
+const slugMatchesForCta = [...pagesContentForCta.matchAll(/slug: "([^"]+)"/g)].map(m => m[1]);
+const homepagePath = join(rootDir, 'dist', 'index.html');
+const publicPaths = [homepagePath];
+for (const slug of slugMatchesForCta) {
+  publicPaths.push(join(rootDir, 'dist', slug, 'index.html'));
+}
+console.log(`  Public URLs checked: ${publicPaths.length}`);
 
-const primaryCTA = (pagesContent.match(/primaryCTA:[\s\S]*?url: "https:\/\/aiapidoctor\.com\/"/g) || []).length;
-const secondaryCTA = (pagesContent.match(/secondaryCTA:[\s\S]*?url: "https:\/\/api1\.link-ai\.cc\/register"/g) || []).length;
-const hashRegister = (pagesContent.match(/#\/register/g) || []).length;
-const toolsLinks = (pagesContent.match(/\/tools\//g) || []).length;
+const requiredCtas = [
+  'https://aiapidoctor.com/',
+  'https://api1.link-ai.cc/register',
+];
+let ctaMissing = 0;
+let hashRegisterHits = 0;
+let toolsHits = 0;
 
-if (primaryCTA === 28) pass(`primary CTA (aiapidoctor.com): ${primaryCTA}/28`);
-else fail(`primary CTA (aiapidoctor.com): ${primaryCTA}/28`, 'should be 28');
+for (const filePath of publicPaths) {
+  if (!existsSync(filePath)) {
+    fail('public page exists', filePath);
+    continue;
+  }
+  const html = readFileSync(filePath, 'utf-8');
+  const rel = filePath.replace(rootDir, '').replace(/\\/g, '/');
+  let ok = true;
 
-if (secondaryCTA === 28) pass(`secondary CTA (register): ${secondaryCTA}/28`);
-else fail(`secondary CTA (register): ${secondaryCTA}/28`, 'should be 28');
+  for (const cta of requiredCtas) {
+    if (!html.includes(cta)) {
+      ok = false;
+      ctaMissing++;
+    }
+  }
+  if (html.includes('#/register')) {
+    ok = false;
+    hashRegisterHits++;
+  }
+  if (html.includes('/tools/')) {
+    ok = false;
+    toolsHits++;
+  }
+  if (ok) pass(`CTA on ${rel}`);
+  else fail(`CTA on ${rel}`, 'missing CTA or contains prohibited link');
+}
 
-if (hashRegister === 0) pass('no #/register');
-else fail('no #/register', `found ${hashRegister}`);
+if (ctaMissing === 0) pass('all public URLs contain aiapidoctor.com and register CTA');
+else fail('all public URLs contain aiapidoctor.com and register CTA', `missing CTA hits: ${ctaMissing}`);
 
-if (toolsLinks === 0) pass('no /tools/');
-else fail('no /tools/', `found ${toolsLinks}`);
+if (hashRegisterHits === 0) pass('no #/register');
+else fail('no #/register', `found on ${hashRegisterHits} pages`);
+
+if (toolsHits === 0) pass('no /tools/');
+else fail('no /tools/', `found on ${toolsHits} pages`);
 
 // ============================================================
 // 4. 404 page checks
@@ -195,6 +226,7 @@ if (existsSync(distDir)) {
 // 6. Forbidden phrases
 // ============================================================
 console.log('\n=== Forbidden Phrases ===');
+const pagesContent = readFileSync(join(rootDir, 'src', 'data', 'pages.ts'), 'utf-8');
 const forbidden = [
   'LinkAI 最便宜', '保证稳定', '官方替代', '永久免费',
   '不会扣费', '100% 安全', '保证解决', '全网最低',
