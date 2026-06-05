@@ -11,7 +11,7 @@ Description: AI API 雷达是一个中文 AI API 配置与风险分诊站，覆�
 - OpenAI API Base URL 是什么？/v1、endpoint 与客户端配置说明: https://aiapiradar.com/openai-api-base-url/
 - API 中转站安全吗？Base URL、模型权限、扣费透明和风险检查清单: https://aiapiradar.com/api-zhongzhuan-safe/
 - OpenClaw 是什么？OpenRouter Agent 客户端简介与使用场景: https://aiapiradar.com/openclaw-shi-shenme/
-- OpenClaw API Key 配置与安全指南: https://aiapiradar.com/openclaw-api-key/
+- OpenClaw API Key 配置与排错指南：401、403、credits 与安全风险: https://aiapiradar.com/openclaw-api-key/
 - OpenClaw OpenRouter 使用方式：多模型聚合与 credits 计费: https://aiapiradar.com/openclaw-openrouter/
 - OpenClaw 安全指南：凭证保护、credits 风险与聊天权限: https://aiapiradar.com/openclaw-security/
 - Kilo Code 与 Cline 对比：VSCode AI 编程工具选型指南: https://aiapiradar.com/kilo-code-vs-cline/

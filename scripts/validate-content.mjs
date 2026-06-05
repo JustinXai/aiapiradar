@@ -32,13 +32,13 @@ try {
     process.exit(1);
   }
 
-  if (fullPageCount !== 6) {
-    console.error(`ERROR: Expected 6 full pages, got ${fullPageCount}`);
+  if (fullPageCount !== 7) {
+    console.error(`ERROR: Expected 7 full pages, got ${fullPageCount}`);
     process.exit(1);
   }
 
-  if (scaffoldPageCount !== 22) {
-    console.error(`ERROR: Expected 22 scaffold pages, got ${scaffoldPageCount}`);
+  if (scaffoldPageCount !== 21) {
+    console.error(`ERROR: Expected 21 scaffold pages, got ${scaffoldPageCount}`);
     process.exit(1);
   }
 
@@ -52,6 +52,7 @@ try {
     'openclaw-wechat',
     'claude-code-token-cost',
     'shipin-shengcheng-api',
+    'openclaw-api-key',
   ];
   for (const slug of requiredFullSlugs) {
     if (!allPagesContent.includes(`slug: "${slug}"`)) {
