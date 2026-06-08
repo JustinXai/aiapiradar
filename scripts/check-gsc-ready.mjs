@@ -33,11 +33,11 @@ console.log('========================================');
 
 // Check all release gates locally
 const checks = [
-  { name: 'sitemap.xml = 29 URLs', check: () => {
+  { name: 'sitemap.xml = 30 URLs', check: () => {
     const sitemap = readFileSync(join(rootDir, 'public', 'sitemap.xml'), 'utf-8');
     const count = (sitemap.match(/<loc>/g) || []).length;
-    if (count === 29) { pass('sitemap.xml = 29 URLs'); return true; }
-    fail(`sitemap.xml = 29 URLs (got ${count})`); return false;
+    if (count === 30) { pass('sitemap.xml = 30 URLs'); return true; }
+    fail(`sitemap.xml = 30 URLs (got ${count})`); return false;
   }},
   { name: 'sitemap includes homepage', check: () => {
     const sitemap = readFileSync(join(rootDir, 'public', 'sitemap.xml'), 'utf-8');
@@ -49,12 +49,12 @@ const checks = [
     if (!sitemap.includes('/404')) { pass('sitemap excludes /404'); return true; }
     fail('sitemap excludes /404'); return false;
   }},
-  { name: 'llms.txt = 29 pages', check: () => {
+  { name: 'llms.txt = 30 pages', check: () => {
     const llms = readFileSync(join(rootDir, 'public', 'llms.txt'), 'utf-8');
     const lines = llms.split('\n');
     const count = lines.filter(l => l.startsWith('- ') && l.includes('aiapiradar.com/')).length;
-    if (count === 29) { pass('llms.txt = 29 pages'); return true; }
-    fail(`llms.txt = 29 pages (got ${count})`); return false;
+    if (count === 30) { pass('llms.txt = 30 pages'); return true; }
+    fail(`llms.txt = 30 pages (got ${count})`); return false;
   }},
   { name: 'llms includes homepage', check: () => {
     const llms = readFileSync(join(rootDir, 'public', 'llms.txt'), 'utf-8');
@@ -66,23 +66,23 @@ const checks = [
     if (!llms.includes('/404')) { pass('llms excludes /404'); return true; }
     fail('llms excludes /404'); return false;
   }},
-  { name: 'pages.ts: 28 slugs', check: () => {
+  { name: 'pages.ts: 29 slugs', check: () => {
     const content = readFileSync(join(rootDir, 'src', 'data', 'pages.ts'), 'utf-8');
     const count = (content.match(/slug: "([^"]+)"/g) || []).length;
-    if (count === 28) { pass('pages.ts: 28 slugs'); return true; }
-    fail(`pages.ts: 28 slugs (got ${count})`); return false;
+    if (count === 29) { pass('pages.ts: 29 slugs'); return true; }
+    fail(`pages.ts: 29 slugs (got ${count})`); return false;
   }},
-  { name: 'pages.ts: 28 primary CTA (aiapidoctor)', check: () => {
+  { name: 'pages.ts: 29 primary CTA (aiapidoctor)', check: () => {
     const content = readFileSync(join(rootDir, 'src', 'data', 'pages.ts'), 'utf-8');
     const count = (content.match(/primaryCTA:[\s\S]*?url: "https:\/\/aiapidoctor\.com\/"/g) || []).length;
-    if (count === 28) { pass('pages.ts: 28 primary CTA'); return true; }
-    fail(`pages.ts: 28 primary CTA (got ${count})`); return false;
+    if (count === 29) { pass('pages.ts: 29 primary CTA'); return true; }
+    fail(`pages.ts: 29 primary CTA (got ${count})`); return false;
   }},
-  { name: 'pages.ts: 28 secondary CTA (register)', check: () => {
+  { name: 'pages.ts: 29 secondary CTA (register)', check: () => {
     const content = readFileSync(join(rootDir, 'src', 'data', 'pages.ts'), 'utf-8');
     const count = (content.match(/secondaryCTA:[\s\S]*?url: "https:\/\/api1\.link-ai\.cc\/register"/g) || []).length;
-    if (count === 28) { pass('pages.ts: 28 secondary CTA'); return true; }
-    fail(`pages.ts: 28 secondary CTA (got ${count})`); return false;
+    if (count === 29) { pass('pages.ts: 29 secondary CTA'); return true; }
+    fail(`pages.ts: 29 secondary CTA (got ${count})`); return false;
   }},
   { name: 'no #/register in pages.ts', check: () => {
     const content = readFileSync(join(rootDir, 'src', 'data', 'pages.ts'), 'utf-8');

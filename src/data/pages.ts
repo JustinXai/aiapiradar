@@ -477,7 +477,7 @@ export const pages: PageData[] = [
       "想理解 Base URL 和 endpoint 区别的人",
     ],
     conceptExplanation:
-      "Base URL（基础 URL）是 API 请求的目标地址前缀。在 OpenAI 以及 OpenAI-compatible API 中，所有请求都发往一个固定的域名地址，后面接具体的接口路径（如 /v1/chat/completions）。\n\n官方 OpenAI 的 Base URL 是 https://api.openai.com/v1。当你使用第三方中转服务时，中转商会提供另一个 Base URL 给你，比如 https://api.example.com/v1。\n\nendpoint（端点）是 Base URL 后面的具体接口路径，如 /v1/models、/v1/chat/completions。有些客户端要求只填 Base URL（不含 /v1），有些要求填完整路径（含 /v1），需要看清楚具体工具的要求。\n\nmodel id 和 model name 也需要区分：model id 是 API 请求时用的标识符（如 gpt-4o），model name 是人类可读的名称。不同服务商的模型 id 可能不同。",
+      "Base URL（基础 URL）是 API 请求的目标地址前缀。在 OpenAI 以及 OpenAI-compatible API 中，所有请求都发往一个固定的域名地址，后面接具体的接口路径（如 /v1/chat/completions）。\n\n官方 OpenAI 的 Base URL 是 https://api.openai.com/v1。当你使用第三方中转服务时，中转商会提供另一个 Base URL 给你，比如 https://api.example.com/v1。\n\nendpoint（端点）是 Base URL 后面的具体接口路径，如 /v1/models、/v1/chat/completions。有些客户端要求只填 Base URL（不含 /v1），有些要求填完整路径（含 /v1），需要看清楚具体工具的要求。很多工具文档里也会把 Base URL 写成 apiBaseUrl、api_base_url、base_url 或 endpoint，本质都是客户端请求发往哪个 API 地址。\n\nmodel id 和 model name 也需要区分：model id 是 API 请求时用的标识符（如 gpt-4o），model name 是人类可读的名称。不同服务商的模型 id 可能不同。",
     setupOrCheckSteps: [
       "确认你的服务提供商（官方或中转）提供的 Base URL",
       "确认是否需要额外添加 /v1 路径（看工具要求）",
@@ -1599,5 +1599,101 @@ export const pages: PageData[] = [
     secondaryCTA: { label: "注册 LinkAI，领取 $2 免费福利", url: "https://api1.link-ai.cc/register" },
     pricingCTA: { label: "查看 LinkAI 模型价格", url: "https://api1.link-ai.cc/pricing" },
     canonical: "https://aiapiradar.com/v1-models/",
+  },
+
+  // 29. claude-code-openrouter (new full)
+  {
+    slug: "claude-code-openrouter",
+    url: "/claude-code-openrouter/",
+    cluster: "claude-code",
+    targetKeyword: "Claude Code OpenRouter",
+    title: "Claude Code OpenRouter 配置指南：API Key、Base URL 与模型排查",
+    metaDescription:
+      "面向想把 Claude Code 接到 OpenRouter 的用户，解释 OPENROUTER_API_KEY、ANTHROPIC_BASE_URL、ANTHROPIC_AUTH_TOKEN、ANTHROPIC_API_KEY 的作用，说明 /logout、/status、401/403/no credits/model not found/provider unavailable/rate limit/timeout 的排查方法，以及 credits 和 Token 成本注意事项。",
+    h1: "Claude Code 怎么配置 OpenRouter？",
+    pageType: "guide",
+    status: "full",
+    quickAnswer:
+      "Claude Code 接 OpenRouter 的核心思路是：把 `ANTHROPIC_BASE_URL` 指向 OpenRouter API 地址，把 `ANTHROPIC_AUTH_TOKEN` 设为 OpenRouter API Key，并显式清空 `ANTHROPIC_API_KEY`，避免旧的 Anthropic 登录状态干扰。配置后可用 `/status` 验证当前请求是否真的走到了 OpenRouter。",
+    audience: [
+      "想在 Claude Code 中使用 OpenRouter 的开发者",
+      "遇到 401、403、no credits、model not found 的用户",
+      "想搞清楚 Claude Code 环境变量和登录状态关系的人",
+    ],
+    conceptExplanation:
+      "Claude Code 是 Anthropic 生态里的 agentic coding 工具，默认更贴近 Anthropic 的认证和接口习惯；OpenRouter 则是一个模型聚合层，允许你用一套 API Key 访问不同提供商的模型，并通过自己的 credits、路由和活动面板来结算与排查。\n\n当你让 Claude Code 走 OpenRouter 时，本质上是在告诉 Claude Code：虽然你原本理解的是 Anthropic 风格的接口，但现在实际请求要改走 OpenRouter 提供的兼容通道。因此你需要同时处理三类状态：\n- **接口地址**：请求到底发到 Anthropic 官方，还是发到 OpenRouter。\n- **认证凭证**：请求头里带的到底是 Anthropic key，还是 OpenRouter key。\n- **本地缓存状态**：你以前是否登录过 Anthropic，Claude Code 会不会优先使用旧的本地登录态。\n\n这也是为什么 Claude Code + OpenRouter 的问题，经常不只是“key 对不对”，而是 Base URL、环境变量优先级、缓存登录态、模型可见性和 OpenRouter credits 一起影响最终行为。更稳妥的做法是：先看环境变量，再用 `/status`、OpenRouter Activity Dashboard、`/v1/models` 和后台 usage 记录逐层验证。",
+    setupOrCheckSteps: [
+      "准备 OpenRouter API Key，并确认账户已有可用 credits 或预算空间",
+      "把 `ANTHROPIC_BASE_URL` 设为 OpenRouter 提供的 API 地址，确保 Claude Code 的请求入口指向 OpenRouter 而不是官方 Anthropic",
+      "把 `ANTHROPIC_AUTH_TOKEN` 设为你的 OpenRouter API Key，用它完成实际认证",
+      "显式把 `ANTHROPIC_API_KEY` 置空，避免 Claude Code 同时读到旧的 Anthropic key 或登录态",
+      "如果你之前登录过 Anthropic，先执行 `/logout`，清掉缓存的登录状态，再重新启动 Claude Code",
+      "启动后使用 `/status` 检查当前配置是否生效，确认显示的是预期后端、模型或连接状态",
+      "再用最小化任务做一次小额测试，并去 OpenRouter Activity Dashboard 查看 request_id、usage 和路由记录是否出现",
+    ],
+    commonErrors: [
+      "401 authentication error：`ANTHROPIC_AUTH_TOKEN` 填错、复制不完整、已过期，或请求仍在使用旧的 Anthropic 登录态",
+      "403 permission / credits / budget / access issue：OpenRouter 账户 credits 不足、预算限制触发，或当前模型对该账户不可用",
+      "no credits：OpenRouter 余额不足，Claude Code 发出的请求被上游拒绝",
+      "key expired or revoked：你使用的是被禁用、轮换后失效或已撤销的 OpenRouter key",
+      "model not found：模型名写错、当前模型对该账户不可见，或路由别名与你填写的不一致",
+      "provider unavailable：当前路由的上游 provider 暂时不可用，或 OpenRouter 针对该模型做了临时限制",
+      "rate limit：Claude Code 多轮循环、工具调用和重试把请求频率推高，触发限流",
+      "timeout：Base URL、网络链路、OpenRouter 上游 provider 或 Claude Code 本地重试链路过长，导致请求超时",
+    ],
+    riskNotes: [
+      "Claude Code 是 agentic coding 工具，长上下文、工具调用、多轮循环、文件读取都会放大 Token 和 credits 消耗。",
+      "不要把真实 API Key 写进页面示例、截图、shell 历史记录、仓库或公开 issue。",
+      "不要硬编码到源码，也不要提交到 public repo。优先用环境变量或权限受控的本地配置。",
+      "如果你在同一台机器上混用 Anthropic 官方和 OpenRouter，尤其要注意缓存登录态和环境变量优先级。",
+      "成本、模型、credits、路由和 provider 可用性以当前 OpenRouter 后台和官方文档为准。",
+      "检测结果用于辅助判断，不等于绝对安全或绝对可用；失败扣费要结合 request_id、usage、后台记录和服务商规则综合判断。",
+    ],
+    whenToUseAIApiDoctor:
+      "当你不确定问题是出在 Base URL、key、兼容性还是模型可见性时，先用 AI API Doctor 做一次辅助检查，确认请求入口、模型列表返回和基础认证是否正常。它更适合缩小排查范围，而不是替代真实请求验证。",
+    whenToUseLinkAI:
+      "如果你想对比另一条兼容接口链路，或者希望先用更小的预算测试模型可见性、Base URL 填法和 usage 透明度，可以在 LinkAI 注册后做小额测试。重点不是立刻迁移，而是建立一个低风险的对照样本。",
+    aiSummary:
+      "Claude Code 接 OpenRouter 时，最关键的不是单独记住某个变量名，而是理解三个动作：把 `ANTHROPIC_BASE_URL` 指到 OpenRouter，把 `ANTHROPIC_AUTH_TOKEN` 换成 OpenRouter key，并显式清空 `ANTHROPIC_API_KEY`，防止 Anthropic 旧登录态干扰。配置后用 `/status`、OpenRouter Activity Dashboard、`/v1/models` 和 usage 记录交叉验证，先小额测试，再扩大任务规模。",
+    faq: [
+      {
+        question: "为什么 `ANTHROPIC_BASE_URL` 要设成 OpenRouter API 地址？",
+        answer: "因为它决定 Claude Code 把请求发到哪里。如果这个值仍指向 Anthropic 官方接口，那么你即使准备了 OpenRouter key，也不一定真的走 OpenRouter。把 `ANTHROPIC_BASE_URL` 改成 OpenRouter 地址，本质上是在切换请求出口。",
+      },
+      {
+        question: "为什么 `ANTHROPIC_AUTH_TOKEN` 要放 OpenRouter API Key？",
+        answer: "因为当请求已经改走 OpenRouter 后，真正负责认证的是 OpenRouter 网关而不是 Anthropic 官方。此时请求头里需要携带 OpenRouter 能识别的 key，所以 `ANTHROPIC_AUTH_TOKEN` 应对应 OpenRouter API Key。",
+      },
+      {
+        question: "为什么还要把 `ANTHROPIC_API_KEY` 显式置空？",
+        answer: "为了避免 Claude Code 同时读到旧的 Anthropic key、本地缓存登录态或其他环境变量，导致请求优先走 Anthropic 官方通道。显式置空是一个防冲突动作，能让问题更容易定位。",
+      },
+      {
+        question: "之前登录过 Anthropic，为什么还要 `/logout`？",
+        answer: "因为 Claude Code 可能缓存了历史登录状态。如果你之前已经登录过 Anthropic，客户端有时会优先使用旧的本地会话，而不是你刚设置的 OpenRouter 环境变量。执行 `/logout` 后重新启动，再用 `/status` 检查，通常更稳妥。",
+      },
+      {
+        question: "怎么判断 Claude Code 真的走到了 OpenRouter？",
+        answer: "先看 Claude Code 的 `/status` 输出，再去 OpenRouter Activity Dashboard 检查是否出现对应 request_id、usage 和模型路由记录。如果本地显示正常但后台没有记录，说明请求可能没有真正到达 OpenRouter。",
+      },
+      {
+        question: "为什么 Claude Code 经常比普通聊天更费 credits？",
+        answer: "因为 Claude Code 是 agentic coding 工具，不是单轮问答。它会读取文件、调用工具、重复尝试、保留上下文并进行多轮循环，所以同一个任务通常比单次聊天消耗更多 Token 和 credits。",
+      },
+    ],
+    relatedLinks: [
+      { title: "Claude Code 中转怎么配置？", url: "/claude-code-zhongzhuan/", reason: "先理解 Claude Code 走中转的基本思路和常见配置坑" },
+      { title: "Claude Code API Key 配置", url: "/claude-code-api-key/", reason: "补充 API Key 管理、轮换和凭证安全" },
+      { title: "Claude Code Base URL 配置教程", url: "/claude-code-base-url/", reason: "单独理解 Base URL 格式、/v1 路径和客户端差异" },
+      { title: "Claude Code Token 成本分析", url: "/claude-code-token-cost/", reason: "理解 agentic coding 的 Token 和 credits 放大效应" },
+      { title: "OpenAI API Base URL 是什么？", url: "/openai-api-base-url/", reason: "补齐 Base URL、endpoint、apiBaseUrl 等命名变体概念" },
+      { title: "OpenAI-compatible API 是什么？", url: "/openai-compatible-api/", reason: "理解兼容接口为什么能让 Claude Code 走非官方通道" },
+      { title: "/v1/models 能检查什么？", url: "/v1-models/", reason: "用模型列表确认可见性、权限和模型名是否写对" },
+      { title: "API 中转站安全吗？", url: "/api-zhongzhuan-safe/", reason: "评估中转链路的透明度、日志风险和扣费判断方式" },
+    ],
+    primaryCTA: { label: "去 AI API Doctor 检测 API 配置", url: "https://aiapidoctor.com/" },
+    secondaryCTA: { label: "注册 LinkAI，领取 $2 免费福利", url: "https://api1.link-ai.cc/register" },
+    pricingCTA: { label: "查看 LinkAI 模型价格", url: "https://api1.link-ai.cc/pricing" },
+    canonical: "https://aiapiradar.com/claude-code-openrouter/",
   },
 ];

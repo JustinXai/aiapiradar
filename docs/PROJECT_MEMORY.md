@@ -31,10 +31,10 @@
 | Category | Count | Notes |
 |----------|-------|-------|
 | Homepage | 1 | https://aiapiradar.com/ — not in pages.ts |
-| Content pages | 28 | Slugs from pages.ts |
-| **Total public URLs** | **29** | Homepage + 28 content |
+| Content pages | 29 | Slugs from pages.ts |
+| **Total public URLs** | **30** | Homepage + 29 content |
 | 404 page | 1 | Excluded from sitemap and llms.txt |
-| dist HTML files | 30 | 1 homepage + 28 content + 1 404.html |
+| dist HTML files | 31 | 1 homepage + 29 content + 1 404.html |
 
 ## Content Categories (from pages.ts)
 
@@ -59,8 +59,8 @@ Forbidden: `#/register`, `/tools/*`
 ## SEO Rules
 
 - Canonical: `https://aiapiradar.com/[slug]/` (no www, always https)
-- Sitemap: 29 URLs (homepage + 28 content), excludes /404
-- LLMs: 29 entries (homepage + 28 content), excludes /404
+- Sitemap: 30 URLs (homepage + 29 content), excludes /404
+- LLMs: 30 entries (homepage + 29 content), excludes /404
 - Robots: Allows all crawlers
 - 404: noindex, follow
 

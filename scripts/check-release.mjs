@@ -36,10 +36,10 @@ if (!existsSync(sitemapPath)) {
   const sitemap = readFileSync(sitemapPath, 'utf-8');
   const locCount = (sitemap.match(/<loc>/g) || []).length;
   console.log(`  URL count: ${locCount}`);
-  if (locCount === 29) {
-    pass('sitemap <loc> count = 29');
+  if (locCount === 30) {
+    pass('sitemap <loc> count = 30');
   } else {
-    fail('sitemap <loc> count = 29', `got ${locCount}`);
+    fail('sitemap <loc> count = 30', `got ${locCount}`);
   }
   if (sitemap.includes('<loc>https://aiapiradar.com/</loc>')) {
     pass('homepage in sitemap');
@@ -66,10 +66,10 @@ if (!existsSync(llmsPath)) {
   const lines = llms.split('\n');
   const pageLines = lines.filter(l => l.startsWith('- ') && l.includes('aiapiradar.com/'));
   console.log(`  Page entries: ${pageLines.length}`);
-  if (pageLines.length === 29) {
-    pass('llms page count = 29');
+  if (pageLines.length === 30) {
+    pass('llms page count = 30');
   } else {
-    fail('llms page count = 29', `got ${pageLines.length}`);
+    fail('llms page count = 30', `got ${pageLines.length}`);
   }
   // Homepage check: first page entry should be the base URL
   if (pageLines.length > 0 && pageLines[0].includes('aiapiradar.com/')) {
@@ -85,7 +85,7 @@ if (!existsSync(llmsPath)) {
 }
 
 // ============================================================
-// 3. CTA checks (homepage + 28 pages = 29 public URLs)
+// 3. CTA checks (homepage + 29 pages = 30 public URLs)
 // ============================================================
 console.log('\n=== CTA (public URLs) ===');
 const pagesContentForCta = readFileSync(join(rootDir, 'src', 'data', 'pages.ts'), 'utf-8');

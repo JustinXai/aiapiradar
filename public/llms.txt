@@ -32,6 +32,7 @@ Description: AI API 雷达是一个中文 AI API 配置与风险分诊站，覆�
 - Claude Code API Key 配置与安全指南: https://aiapiradar.com/claude-code-api-key/
 - Claude Code Base URL 配置教程：API 地址填写指南: https://aiapiradar.com/claude-code-base-url/
 - /v1/models 能检查什么？模型列表、权限与 API 配置验证: https://aiapiradar.com/v1-models/
+- Claude Code OpenRouter 配置指南：API Key、Base URL 与模型排查: https://aiapiradar.com/claude-code-openrouter/
 
 ## External Links
 - AI API Doctor (检测): https://aiapidoctor.com/

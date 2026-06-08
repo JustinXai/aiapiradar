@@ -61,7 +61,7 @@ Every completion report must include:
 - Whether GSC/Bing submission is allowed
 
 ## Current State of Truth
-- Public URLs: 29 = homepage + 28 content pages
-- sitemap.xml: 29 <loc>, includes homepage, excludes /404
-- llms.txt: 29 pages, includes homepage, excludes /404
-- All 29 pages must pass CTA checks before any release
+- Public URLs: 30 = homepage + 29 content pages
+- sitemap.xml: 30 <loc>, includes homepage, excludes /404
+- llms.txt: 30 pages, includes homepage, excludes /404
+- All 30 pages must pass CTA checks before any release

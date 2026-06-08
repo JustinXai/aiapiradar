@@ -20,10 +20,10 @@ If any gate fails, do not push to main.
 
 | Gate | Expected | Forbidden |
 |------|----------|-----------|
-| sitemap.xml <loc> count | 29 | — |
+| sitemap.xml <loc> count | 30 | — |
 | sitemap.xml includes homepage | yes | — |
 | sitemap.xml includes /404 | no | /404 must be excluded |
-| llms.txt page entries count | 29 | — |
+| llms.txt page entries count | 30 | — |
 | llms.txt includes homepage | yes | — |
 | llms.txt includes /404 | no | /404 must be excluded |
 
@@ -31,8 +31,8 @@ If any gate fails, do not push to main.
 
 | Gate | Expected |
 |------|----------|
-| Pages with aiapidoctor.com | 29/29 |
-| Pages with api1.link-ai.cc/register | 29/29 |
+| Pages with aiapidoctor.com | 30/30 |
+| Pages with api1.link-ai.cc/register | 30/30 |
 | Pages with #/register | 0 |
 | Pages with /tools/ | 0 |
 

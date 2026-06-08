@@ -27,13 +27,13 @@ try {
   console.log(`  Full pages: ${fullPageCount}`);
   console.log(`  Scaffold pages: ${scaffoldPageCount}`);
 
-  if (fullPageCount + scaffoldPageCount !== 28) {
-    console.error(`ERROR: Expected 28 pages, got ${fullPageCount + scaffoldPageCount}`);
+  if (fullPageCount + scaffoldPageCount !== 29) {
+    console.error(`ERROR: Expected 29 pages, got ${fullPageCount + scaffoldPageCount}`);
     process.exit(1);
   }
 
-  if (fullPageCount !== 7) {
-    console.error(`ERROR: Expected 7 full pages, got ${fullPageCount}`);
+  if (fullPageCount !== 8) {
+    console.error(`ERROR: Expected 8 full pages, got ${fullPageCount}`);
     process.exit(1);
   }
 
@@ -53,6 +53,7 @@ try {
     'claude-code-token-cost',
     'shipin-shengcheng-api',
     'openclaw-api-key',
+    'claude-code-openrouter',
   ];
   for (const slug of requiredFullSlugs) {
     if (!allPagesContent.includes(`slug: "${slug}"`)) {
@@ -96,21 +97,21 @@ try {
   }
   console.log('  Canonical format: PASS');
 
-  // Check CTA URLs - 28 pages now
+  // Check CTA URLs - 29 content pages now
   const primaryCTACount = (allPagesContent.match(/primaryCTA:.*?url: "https:\/\/aiapidoctor\.com\/"/gs) || []).length;
   const secondaryCTACount = (allPagesContent.match(/secondaryCTA:.*?url: "https:\/\/api1\.link-ai\.cc\/register"/gs) || []).length;
   const pricingCTACount = (allPagesContent.match(/pricingCTA:.*?url: "https:\/\/api1\.link-ai\.cc\/pricing"/gs) || []).length;
 
-  if (primaryCTACount !== 28) {
-    console.error(`ERROR: Expected 28 primary CTA URLs (aiapidoctor.com), got ${primaryCTACount}`);
+  if (primaryCTACount !== 29) {
+    console.error(`ERROR: Expected 29 primary CTA URLs (aiapidoctor.com), got ${primaryCTACount}`);
     process.exit(1);
   }
-  if (secondaryCTACount !== 28) {
-    console.error(`ERROR: Expected 28 secondary CTA URLs (register), got ${secondaryCTACount}`);
+  if (secondaryCTACount !== 29) {
+    console.error(`ERROR: Expected 29 secondary CTA URLs (register), got ${secondaryCTACount}`);
     process.exit(1);
   }
-  if (pricingCTACount !== 28) {
-    console.error(`ERROR: Expected 28 pricing CTA URLs (pricing), got ${pricingCTACount}`);
+  if (pricingCTACount !== 29) {
+    console.error(`ERROR: Expected 29 pricing CTA URLs (pricing), got ${pricingCTACount}`);
     process.exit(1);
   }
   console.log('  CTA URLs: PASS');

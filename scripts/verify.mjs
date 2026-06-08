@@ -53,10 +53,10 @@ if (!existsSync(sitemapPath)) {
   const urlCount = (sitemapContent.match(/<url>/g) || []).length;
   console.log(`\n=== sitemap check ===`);
     console.log(`  sitemap.xml exists: OK (${urlCount} URLs)`);
-    if (urlCount !== 29) {
-      console.error(`  [WARN] Expected 29 URLs (homepage + 28 content), got ${urlCount}`);
+    if (urlCount !== 30) {
+      console.error(`  [WARN] Expected 30 URLs (homepage + 29 content), got ${urlCount}`);
     } else {
-      console.log(`  [OK] URL count 29 (correct)`);
+      console.log(`  [OK] URL count 30 (correct)`);
     }
 }
 

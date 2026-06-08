@@ -28,20 +28,20 @@ AI API Radar is a neutral Chinese SEO/GEO引流站 covering AI API configuration
 ## Current URL Count (Source of Truth)
 
 - **Homepage**: https://aiapiradar.com/ (1 URL)
-- **Content pages**: 28 slugs defined in `src/data/pages.ts`
-- **Total public URLs**: 29
+- **Content pages**: 29 slugs defined in `src/data/pages.ts`
+- **Total public URLs**: 30
 - **404 page**: Exists but excluded from sitemap and llms.txt
 
 ## sitemap.xml Rules
 
-- Must contain homepage + 28 content pages = 29 `<loc>` entries
+- Must contain homepage + 29 content pages = 30 `<loc>` entries
 - Must NOT contain /404
 - Homepage URL `https://aiapiradar.com/` must be the first entry
 - Regenerate after any `pages.ts` change
 
 ## llms.txt Rules
 
-- Must contain homepage + 28 content pages = 29 page entries
+- Must contain homepage + 29 content pages = 30 page entries
 - Must NOT contain /404
 - Homepage entry: `首页: https://aiapiradar.com/`
 - Regenerate after any `pages.ts` change
@@ -141,7 +141,7 @@ Every completion report must state:
 See `docs/HISTORICAL_BUGS.md` for the full list. Key items:
 - Cloudflare can lag behind main — always verify deployed commit
 - Homepage is not in pages.ts — sitemap/llms must add it manually
-- CTA must be checked on ALL 29 pages, not sampled
+- CTA must be checked on ALL 30 pages, not sampled
 - 404 page requires both "页面未找到" text and noindex meta
 - Forbidden phrase checks must target complete phrases, not substrings
 

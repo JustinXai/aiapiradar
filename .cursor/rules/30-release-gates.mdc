@@ -13,23 +13,23 @@ npm run check:release
 ```
 
 ## Sitemap / LLMs Gates
-- sitemap.xml must contain homepage + all 28 content pages = 29 <loc>
-- llms.txt must contain homepage + all 28 content pages = 29 page entries
+- sitemap.xml must contain homepage + all 29 content pages = 30 <loc>
+- llms.txt must contain homepage + all 29 content pages = 30 page entries
 - /404 must NOT appear in sitemap or llms.txt
 - sitemap and llms must be regenerated after any pages.ts change
 
 ## Current URL Count (Source of Truth)
 - Homepage: https://aiapiradar.com/ (1)
-- Content pages: 28 slugs from pages.ts
-- Total public URLs: 29
+- Content pages: 29 slugs from pages.ts
+- Total public URLs: 30
 - 404 page: exists but excluded from sitemap/llms
 
 ## CTA Gates (Full-Site, Not Sample)
-- All 29 public pages must include https://aiapidoctor.com/
-- All 29 public pages must include https://api1.link-ai.cc/register
+- All 30 public pages must include https://aiapidoctor.com/
+- All 30 public pages must include https://api1.link-ai.cc/register
 - Zero occurrences of #/register in any page
 - Zero occurrences of /tools/ in any page
-- CTA checks are never optional — must check all 29 pages
+- CTA checks are never optional — must check all 30 pages
 
 ## SEO Gates
 - All public pages: canonical = https://aiapiradar.com/[slug]/
