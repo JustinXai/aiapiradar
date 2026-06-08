@@ -1609,7 +1609,7 @@ export const pages: PageData[] = [
     targetKeyword: "Claude Code OpenRouter",
     title: "Claude Code OpenRouter 配置指南：API Key、Base URL 与模型排查",
     metaDescription:
-      "面向想把 Claude Code 接到 OpenRouter 的用户，解释 OPENROUTER_API_KEY、ANTHROPIC_BASE_URL、ANTHROPIC_AUTH_TOKEN、ANTHROPIC_API_KEY 的作用，说明 /logout、/status、401/403/no credits/model not found/provider unavailable/rate limit/timeout 的排查方法，以及 credits 和 Token 成本注意事项。",
+      "配置 Claude Code 接入 OpenRouter：了解 ANTHROPIC_BASE_URL、AUTH_TOKEN、API Key 置空、/status 验证、credits 与 model not found 排查。",
     h1: "Claude Code 怎么配置 OpenRouter？",
     pageType: "guide",
     status: "full",
