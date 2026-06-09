@@ -232,6 +232,7 @@ export const pages: PageData[] = [
     relatedLinks: [
       { title: "Claude Code 中转怎么配置？", url: "/claude-code-zhongzhuan/", reason: "Claude Code 中转配置的基础步骤" },
       { title: "Claude Code API Key 配置", url: "/claude-code-api-key/", reason: "API Key 配置与凭证安全" },
+      { title: "Claude Code OpenRouter 配置指南", url: "/claude-code-openrouter/", reason: "如果你是想把 Claude Code 接到 OpenRouter，请看此指南" },
       { title: "OpenAI API Base URL 是什么？", url: "/openai-api-base-url/", reason: "理解 Base URL 与成本的关系" },
       { title: "OpenAI API Usage 怎么看？", url: "/openai-api-usage/", reason: "用 usage 记录判断扣费是否正常" },
       { title: "API 中转站安全吗？", url: "/api-zhongzhuan-safe/", reason: "中转服务的成本与风险评估" },
@@ -543,6 +544,11 @@ export const pages: PageData[] = [
         reason: "Base URL 配置的实际应用场景",
       },
       {
+        title: "Claude Code OpenRouter 配置指南",
+        url: "/claude-code-openrouter/",
+        reason: "如果你是想把 Claude Code 接到 OpenRouter，请看此指南",
+      },
+      {
         title: "API 中转站安全吗？",
         url: "/api-zhongzhuan-safe/",
         reason: "理解中转站的风险和安全注意事项",
@@ -654,6 +660,11 @@ export const pages: PageData[] = [
         title: "MCP 安全吗？",
         url: "/mcp-security/",
         reason: "MCP 配置也有 API Key 安全问题",
+      },
+      {
+        title: "Claude Code OpenRouter 配置指南",
+        url: "/claude-code-openrouter/",
+        reason: "如果你是想把 Claude Code 接到 OpenRouter，请看此指南",
       },
     ],
     primaryCTA: {
@@ -975,6 +986,7 @@ export const pages: PageData[] = [
     relatedLinks: [
       { title: "Kilo Code vs Cline", url: "/kilo-code-vs-cline/", reason: "两个工具的对比" },
       { title: "Claude Code Token 成本", url: "/claude-code-token-cost/", reason: "Agent 成本分析" },
+      { title: "Claude Code OpenRouter 配置指南", url: "/claude-code-openrouter/", reason: "如果你是想把 Claude Code 接到 OpenRouter，请看此指南" },
       { title: "Coding Agent Token 成本", url: "/coding-agent-token-cost/", reason: "通用 Agent 成本" },
     ],
     primaryCTA: { label: "去 AI API Doctor 检测 API 配置", url: "https://aiapidoctor.com/" },
