@@ -21,7 +21,7 @@ interface Props {
 const { page } = Astro.props;
 
 const breadcrumbItems = [
-  { name: '首页', href: '/' },
+  { name: 'Home', href: '/' },
   { name: page.h1, href: page.url },
 ];
 ---
@@ -47,14 +47,14 @@ const breadcrumbItems = [
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
             </svg>
-            快速答案
+            Quick Answer
           </span>
           <h1 class="qa-h1">{page.h1}</h1>
           <p class="qa-text">{page.quickAnswer}</p>
 
           {page.audience.length > 0 && (
             <div class="qa-audience">
-              <strong>适合：</strong>
+              <strong>For:</strong>
               {page.audience.join(' · ')}
             </div>
           )}
@@ -100,7 +100,7 @@ const breadcrumbItems = [
 
           <!-- Concept -->
           <section class="content-section">
-            <h2 class="content-h2">这个概念/问题是什么</h2>
+            <h2 class="content-h2">What This Is</h2>
             <div class="content-prose">
               {page.conceptExplanation.split('\n\n').map(para => (
                 <p>{para}</p>
@@ -111,22 +111,22 @@ const breadcrumbItems = [
           <!-- Steps -->
           <section class="content-section">
             <h2 class="content-h2">
-              {page.status === 'full' ? '配置或检查步骤' : '检查步骤'}
+              {page.status === 'full' ? 'Setup or Check Steps' : 'Check Steps'}
             </h2>
-            <ol class="steps-list">
+            <ul class="steps-list">
               {page.setupOrCheckSteps.map((step, i) => (
                 <li class="step-item">
                   <span class="step-num">{i + 1}</span>
                   <span class="step-text">{step}</span>
                 </li>
               ))}
-            </ol>
+            </ul>
           </section>
 
           <!-- Common errors -->
           {page.commonErrors.length > 0 && (
             <section class="content-section">
-              <h2 class="content-h2">常见错误</h2>
+              <h2 class="content-h2">Common Errors</h2>
               <ul class="error-list">
                 {page.commonErrors.map(error => (
                   <li class="error-item">
@@ -145,7 +145,7 @@ const breadcrumbItems = [
           <!-- Risk notes -->
           {page.riskNotes.length > 0 && (
             <section class="content-section">
-              <h2 class="content-h2">安全 / 扣费 / 权限风险</h2>
+              <h2 class="content-h2">Security / Billing / Permission Risks</h2>
               <div class="risk-box">
                 <ul class="risk-list">
                   {page.riskNotes.map(note => (
@@ -165,13 +165,13 @@ const breadcrumbItems = [
 
           <!-- When to use AI API Doctor -->
           <section class="content-section">
-            <h2 class="content-h2">什么时候用 AI API Doctor 检测</h2>
+            <h2 class="content-h2">When to Use AI API Doctor</h2>
             <p class="content-text">{page.whenToUseAIApiDoctor}</p>
           </section>
 
           <!-- When to use LinkAI -->
           <section class="content-section">
-            <h2 class="content-h2">什么时候用 LinkAI 小额测试</h2>
+            <h2 class="content-h2">When to Use LinkAI for Small Tests</h2>
             <p class="content-text">{page.whenToUseLinkAI}</p>
           </section>
 
@@ -194,7 +194,7 @@ const breadcrumbItems = [
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
               </svg>
-              相关链接
+              Related Guides
             </h3>
             <div class="related-links">
               {page.relatedLinks.map(link => (
@@ -208,8 +208,8 @@ const breadcrumbItems = [
 
           <!-- Sidebar CTA -->
           <div class="sidebar-card sidebar-cta">
-            <h3 class="sidebar-card-title">准备测试？</h3>
-            <p class="sidebar-cta-text">先检测，再小额测试。</p>
+            <h3 class="sidebar-card-title">Ready to Test?</h3>
+            <p class="sidebar-cta-text">Check first, then test with a small budget.</p>
             <a href={page.primaryCTA.url} class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:8px" target="_blank" rel="noopener">
               {page.primaryCTA.label}
             </a>
@@ -393,6 +393,7 @@ const breadcrumbItems = [
     display: flex;
     flex-direction: column;
     gap: 12px;
+    counter-reset: step-counter;
   }
 
   .step-item {
@@ -407,6 +408,17 @@ const breadcrumbItems = [
 
   .step-num {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
     align-items: center;
     justify-content: center;
     width: 28px;

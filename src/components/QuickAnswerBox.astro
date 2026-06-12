@@ -19,13 +19,13 @@ const { h1, quickAnswer, audience, primaryCTA, secondaryCTA, pricingCTA } = Astr
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
           </svg>
-          快速答案
+          Quick Answer
         </span>
         <p class="qa-text">{quickAnswer}</p>
 
         {audience.length > 0 && (
           <div class="qa-audience">
-            <span class="qa-audience-label">适合：</span>
+            <span class="qa-audience-label">For:</span>
             {audience.map((a, i) => (
               <span>
                 {a}{i < audience.length - 1 ? ' · ' : ''}

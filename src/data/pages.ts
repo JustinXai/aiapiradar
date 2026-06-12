@@ -1866,7 +1866,7 @@ export const pages: PageData[] = [
     faq: [
       {
         question: "How should I compare Claude Fable 5 pricing across providers?",
-        answer: "Do not assume providers charge the same rate. The Claude API and OpenRouter both pass through Anthropic's published rate ($10/M input, $50/M output) with no markup, but cloud providers (Bedrock, Vertex AI, Foundry) add their own billing layer on top. Check each platform's current pricing page and your cloud billing dashboard to get accurate cost-per-token for your provider. Also review your actual usage records to confirm the billed amount matches your request volume.",
+        answer: "Do not assume providers charge the same rate. The Claude API lists Anthropic's published rate ($10/M input, $50/M output) for direct access. OpenRouter currently lists the model at the rates shown on its model page — confirm the live pricing page and your billing records before production use. Cloud providers (Bedrock, Vertex AI, Foundry) add their own billing layer on top. Check each platform's current pricing page and your cloud billing dashboard to get accurate cost-per-token for your provider. Also review your actual usage records to confirm the billed amount matches your request volume.",
       },
       {
         question: "What are the Claude Fable 5 model IDs on each platform?",

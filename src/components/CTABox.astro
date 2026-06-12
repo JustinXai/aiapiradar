@@ -13,13 +13,13 @@ interface Props {
 }
 
 const {
-  heading = "不确定 API 能不能跑？先别直接接进长任务。",
-  description = "先检测 Base URL、API Key、模型权限和 usage 信号；确认基础可用后，再用小额预算测试 Claude Code、Cursor 或 Cline。",
-  primaryLabel = "去 AI API Doctor 检测",
+  heading = "Not sure if your API works? Test before wiring it into production.",
+  description = "Check Base URL, API Key, model permissions, and usage signals first. Then use a small test budget to verify Claude Code, Cursor, or Cline before committing.",
+  primaryLabel = "Test your API configuration in AI API Doctor",
   primaryUrl = site.aiApiDoctorUrl,
-  secondaryLabel = "注册 LinkAI，领取 $2 免费福利",
+  secondaryLabel = "Create a LinkAI account",
   secondaryUrl = site.linkAIRegisterUrl,
-  pricingLabel = "查看 LinkAI 模型价格",
+  pricingLabel = "Check LinkAI model pricing",
   pricingUrl = site.linkAIModelPricingUrl,
 } = Astro.props;
 ---
