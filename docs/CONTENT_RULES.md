@@ -18,7 +18,7 @@ Every content page (from pages.ts) must contain all of:
 
 Every public page MUST include:
 - `https://aiapidoctor.com/` — detection CTA
-- `https://api1.link-ai.cc/register` — registration CTA with "$2 免费福利" copy
+- `https://api1.link-ai.cc/register` — registration CTA with neutral copy ("注册 LinkAI" for Chinese pages, "Create a LinkAI account" for English pages)
 
 Pages must NOT contain:
 - `#/register` (hash router links)

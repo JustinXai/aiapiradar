@@ -50,7 +50,7 @@ AI API Radar is a neutral Chinese SEO/GEO引流站 covering AI API configuration
 
 - Detection: `https://aiapidoctor.com/`
 - Registration: `https://api1.link-ai.cc/register`
-- Registration copy: "注册 LinkAI，领取 $2 免费福利"
+- Registration copy: "注册 LinkAI"
 - Forbidden: `#/register` — must not appear in any page
 - Forbidden: `/tools/` — must not appear in any page
 

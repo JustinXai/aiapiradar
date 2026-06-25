@@ -272,6 +272,41 @@ if (forbiddenHits.length === 0) {
 }
 
 // ============================================================
+// 7. Prohibited CTA welfare copy (full dist scan)
+// ============================================================
+console.log('\n=== Prohibited CTA Welfare Copy ===');
+const prohibitedCtaPatterns = [
+  '注册 LinkAI，领取 $2 免费福利',
+  '$2 免费福利',
+  '免费福利',
+  '1 RMB = 1 USD',
+];
+let prohibitedCtaHits = [];
+
+if (existsSync(distDir)) {
+  const distFiles = findFiles(distDir);
+  const htmlFiles = distFiles.filter(f => f.endsWith('.html'));
+  for (const htmlFile of htmlFiles) {
+    const fullPath = join(distDir, htmlFile);
+    const content = readFileSync(fullPath, 'utf-8');
+    for (const pattern of prohibitedCtaPatterns) {
+      if (content.includes(pattern)) {
+        const rel = htmlFile.replace(/\\/g, '/');
+        prohibitedCtaHits.push({ pattern, file: rel });
+      }
+    }
+  }
+}
+
+if (prohibitedCtaHits.length === 0) {
+  pass('no prohibited CTA welfare copy in dist');
+} else {
+  for (const hit of prohibitedCtaHits) {
+    fail(`prohibited CTA welfare copy: "${hit.pattern}"`, `in ${hit.file}`);
+  }
+}
+
+// ============================================================
 // Summary
 // ============================================================
 console.log('\n========================================');

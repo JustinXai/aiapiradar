@@ -139,6 +139,23 @@ try {
   if (foundForbidden) process.exit(1);
   console.log('  Forbidden phrases: PASS');
 
+  // Check prohibited CTA welfare copy
+  const prohibitedCtaPhrases = [
+    '注册 LinkAI，领取 $2 免费福利',
+    '$2 免费福利',
+    '免费福利',
+    '1 RMB = 1 USD',
+  ];
+  let foundProhibitedCta = false;
+  for (const phrase of prohibitedCtaPhrases) {
+    if (allPagesContent.includes(phrase)) {
+      console.error(`ERROR: Prohibited CTA welfare copy found: "${phrase}"`);
+      foundProhibitedCta = true;
+    }
+  }
+  if (foundProhibitedCta) process.exit(1);
+  console.log('  Prohibited CTA welfare copy: PASS');
+
   // Check placeholder text
   const placeholderPhrases = [
     'TODO', 'TBD', 'placeholder', 'lorem ipsum', '示例标题', '待补充',

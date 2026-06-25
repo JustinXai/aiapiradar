@@ -52,7 +52,7 @@
 | CTA | URL | Copy |
 |-----|-----|------|
 | Detection | https://aiapidoctor.com/ | — |
-| Registration | https://api1.link-ai.cc/register | "注册 LinkAI，领取 $2 免费福利" |
+| Registration | https://api1.link-ai.cc/register | "注册 LinkAI" |
 
 Forbidden: `#/register`, `/tools/*`
 
