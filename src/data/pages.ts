@@ -1273,12 +1273,12 @@ export const pages: PageData[] = [
     url: "/mcp-shi-shenme/",
     cluster: "mcp",
     targetKeyword: "MCP 是什么",
-    title: "MCP 是什么？模型上下文协议简介与常见配置场景",
-    metaDescription: "用中文介绍 MCP（模型上下文协议）是什么，适合谁用，以及在 Cursor、Claude Desktop、Cline 等工具中的配置基础。",
-    h1: "MCP 是什么？",
+    title: "MCP 是什么意思？Model Context Protocol 原理与用途",
+    metaDescription: "MCP 是 Model Context Protocol，用来让 AI 模型连接工具、文件、数据库和服务。本文解释 MCP 的作用、与 API 和插件的区别，以及常见使用场景。",
+    h1: "MCP 是什么意思？",
     pageType: "guide",
     status: "scaffold",
-    quickAnswer: "MCP（Model Context Protocol，模型上下文协议）是一种让 AI 模型与外部工具、数据源交互的标准协议。配置 MCP 需要注意 API Key 权限、环境变量安全和服务器来源可靠性。",
+    quickAnswer: "MCP 是 Model Context Protocol 的缩写，是一种让 AI 应用连接外部工具、数据和服务的开放协议。配置 MCP 时需要注意 API Key 权限、环境变量安全和服务器来源可靠性。",
     audience: ["想了解 MCP 是什么的开发者", "想在 Cursor 或 Claude Desktop 中配置 MCP 的用户", "关心 MCP 安全风险的开发者"],
     conceptExplanation: "MCP（Model Context Protocol，模型上下文协议）是由 Anthropic 提出的开放协议，旨在让 AI 模型能够以标准化的方式与外部工具、API、数据源交互。简单来说，MCP 相当于 AI 模型的「USB 接口」——有了 MCP，AI 模型可以通过统一的协议调用各种外部工具，而不需要为每个工具单独集成。",
     setupOrCheckSteps: ["确认要配置的 MCP Server 来源是否可靠", "查看 MCP Server 需要的 API Key 类型和权限范围", "在 Claude Desktop 或 Cursor 中配置 MCP Server 地址", "设置必要的环境变量（如 API Key）", "测试 MCP 工具调用是否正常返回", "检查 MCP 是否有日志记录，以及日志记录的范围", "确认不需要给 MCP 过多权限，只提供必要的凭证"],
@@ -1626,9 +1626,9 @@ export const pages: PageData[] = [
     url: "/claude-code-openrouter/",
     cluster: "claude-code",
     targetKeyword: "Claude Code OpenRouter",
-    title: "Claude Code OpenRouter 配置指南：API Key、Base URL 与模型排查",
+    title: "Claude Code OpenRouter 配置：Base URL、API Key 和模型名",
     metaDescription:
-      "配置 Claude Code 接入 OpenRouter：了解 ANTHROPIC_BASE_URL、AUTH_TOKEN、API Key 置空、/status 验证、credits 与 model not found 排查。",
+      "Claude Code 接入 OpenRouter 的配置方法，包含 Base URL、API Key、模型名、环境变量，以及 401、404、model not found 等常见问题排查。",
     h1: "Claude Code 怎么配置 OpenRouter？",
     pageType: "guide",
     status: "full",
@@ -1699,6 +1699,10 @@ export const pages: PageData[] = [
         question: "为什么 Claude Code 经常比普通聊天更费 credits？",
         answer: "因为 Claude Code 是 agentic coding 工具，不是单轮问答。它会读取文件、调用工具、重复尝试、保留上下文并进行多轮循环，所以同一个任务通常比单次聊天消耗更多 Token 和 credits。",
       },
+      {
+        question: "OpenRouter 怎么配置 Claude Code？",
+        answer: "配置分四步：1. 把 `ANTHROPIC_BASE_URL` 设为 OpenRouter 的 API 地址（如 https://openrouter.ai/api/v1），决定请求发到哪个后端。2. 把 `ANTHROPIC_AUTH_TOKEN` 设为 OpenRouter API Key，作为认证凭证。3. 把 `ANTHROPIC_API_KEY` 显式置空，防止旧的 Anthropic 登录态干扰。4. 重启 Claude Code 客户端让环境变量生效。配置完成后，用 `/status` 检查是否真的走 OpenRouter，并去 OpenRouter Activity Dashboard 验证 request_id 是否出现。如果配置正确但仍然报错，检查响应体（不仅是 HTTP 状态码）里的错误信息，区分是 Base URL 问题、认证失败还是模型不可用。",
+      },
     ],
     relatedLinks: [
       { title: "Claude Code 中转怎么配置？", url: "/claude-code-zhongzhuan/", reason: "先理解 Claude Code 走中转的基本思路和常见配置坑" },
@@ -1728,9 +1732,9 @@ export const pages: PageData[] = [
     url: "/claude-fable-5/",
     cluster: "claude-code",
     targetKeyword: "Claude Fable 5",
-    title: "Claude Fable 5 API Access Guide: Model IDs, Refusal Behavior, and Fallback Setup",
+    title: "Claude Fable 5 API Guide: Model IDs and Fallbacks",
     metaDescription:
-      "Claude Fable 5 API guide: model ID by platform, availability on Claude API / Bedrock / Vertex AI / Foundry / OpenRouter, HTTP 200 refusal behavior, fallback to Opus 4.8, common 400 errors, and /v1/models verification.",
+      "Configure Claude Fable 5 across Claude API, Bedrock, Vertex AI, Foundry, and OpenRouter. Check model IDs, refusal behavior, fallbacks, and billing signals.",
     h1: "Claude Fable 5 API: Model ID, Availability, Refusal, and Fallback",
     pageType: "guide",
     status: "full",
@@ -1743,7 +1747,7 @@ export const pages: PageData[] = [
       "Engineers debugging Fable 5 refusal or 400 errors",
     ],
     conceptExplanation:
-      "Claude Fable 5 is Anthropic's first publicly released Mythos-class model, positioned above the Opus tier. It targets long-running, complex, asynchronous agentic tasks. Core specs: 1M token context window, 128K max output per request, $10/M input tokens, $50/M output tokens, 90% discount on prompt cache reads.\n\nKey difference from Opus: Fable 5 ships with safety classifiers covering offensive cyber work, biology, and reasoning extraction. When a request triggers a classifier, the API returns HTTP 200 with stop_reason=refusal rather than an HTTP 4xx error. This means monitoring systems built around 4xx/5xx will silently miss these events.\n\nRefusal fallback: On the native Claude API and Claude Platform on AWS, a beta fallbacks parameter automates retry to Opus 4.8 server-side. On Amazon Bedrock, Vertex AI, and Microsoft Foundry, the fallbacks parameter is not available — you must implement client-side retry logic using the Anthropic SDK refusal-fallback middleware (Python, TypeScript, Go, Java, C#).\n\nClaude Code: Fable 5 support requires Claude Code v2.1.170 or later. Older versions will not show Fable 5 in the model picker.",
+      "Claude Fable 5 is Anthropic's first publicly released Mythos-class model, positioned above the Opus tier. It targets long-running, complex, asynchronous agentic tasks. Core specs: 1M token context window, 128K max output per request, $10/M input tokens, $50/M output tokens, 90% discount on prompt cache reads.\n\nKey difference from Opus: Fable 5 ships with safety classifiers covering offensive cyber work, biology, and reasoning extraction. When a request triggers a classifier, the API returns HTTP 200 with stop_reason=refusal rather than an HTTP 4xx error. This means monitoring systems built around 4xx/5xx will silently miss these events.\n\nRefusal fallback: On the native Claude API and Claude Platform on AWS, a beta fallbacks parameter automates retry to Opus 4.8 server-side. On Amazon Bedrock, Vertex AI, and Microsoft Foundry, the fallbacks parameter is not available — you must implement client-side retry logic using the Anthropic SDK refusal-fallback middleware (Python, TypeScript, Go, Java, C#).\n\nClaude Code: Fable 5 support requires Claude Code v2.1.170 or later. Older versions will not show Fable 5 in the model picker.\n\n**Why Claude Fable 5 Is Unavailable**\n\nIf Fable 5 does not appear in /v1/models or returns an error, the cause is usually one of the following:\n\n- **Model missing from /v1/models** — the account has not been granted access yet, or the model is not yet available in the account's region or tier.\n- **Wrong model ID** — using the Claude API format (claude-fable-5) on a platform that requires a different format (e.g., Bedrock requires anthropic.claude-fable-5).\n- **Account or region not enabled** — Bedrock requires the provider_data_share opt-in; Vertex AI requires signing the Advanced AI Safety Addendum and activating the model per region; Foundry requires Partner Model onboarding.\n- **Provider does not expose the model** — not all OpenAI-compatible gateways list Fable 5. Check the provider's current model catalog.\n- **Claude Code version too old** — Fable 5 requires Claude Code v2.1.170 or later. Older versions will not show Fable 5 in the model picker.\n- **Response is a refusal, not an error** — Fable 5 returns HTTP 200 with stop_reason=refusal. This is not an HTTP error code; it requires checking stop_reason in the response body, not monitoring HTTP status codes alone.\n- **Distinguishing Base URL, API key, model visibility, and provider-access problems** — Base URL determines the request destination; API key determines authentication; /v1/models determines model visibility; provider catalog determines whether the model is accessible on that platform. A failure at any layer will prevent a successful call.\n\nAI API Doctor can help verify whether the API key, Base URL, and /v1/models response are configured correctly before sending a full request. Use it to narrow down which layer — URL, key, or model visibility — is causing the unavailability.",
     setupOrCheckSteps: [
       "Identify your platform: Claude API, Amazon Bedrock, Google Vertex AI, Microsoft Foundry, or OpenRouter",
       "Get the correct model ID for your platform (see provider table in the providers guide)",
@@ -1792,6 +1796,10 @@ export const pages: PageData[] = [
         question: "Can I use Claude Fable 5 via an OpenAI-compatible API?",
         answer: "The native Claude API, Bedrock, Vertex AI, and Foundry each use their own API (Messages API / Invoke / Converse API) — not OpenAI-compatible. If you need OpenAI compatibility, OpenRouter exposes Fable 5 at model ID anthropic/claude-fable-5 through its OpenAI-compatible endpoint. Other OpenAI-compatible gateways may also list Fable 5 — verify against their current model catalog.",
       },
+      {
+        question: "Why is Claude Fable 5 unavailable in my account?",
+        answer: "Fable 5 unavailability usually stems from one of these causes: the model is not in your /v1/models response (confirm against the provider catalog and account enablement status); the model ID format is wrong for your platform (Claude API and Vertex AI use claude-fable-5; Amazon Bedrock requires anthropic.claude-fable-5); your account or region has not been enabled yet (Bedrock requires provider_data_share opt-in; Vertex AI requires signing the Advanced AI Safety Addendum and activating per region; Foundry requires Partner Model onboarding); the provider does not currently expose the model for your plan or region; your Claude Code version predates Fable 5 support (requires v2.1.170+); or you are seeing a refusal rather than an error (Fable 5 returns HTTP 200 with stop_reason=refusal, not a 4xx code — check the response body, not just the HTTP status). To narrow down the cause, check each layer in order: Base URL determines the destination; API key determines authentication; /v1/models determines visibility; provider catalog determines platform-level availability. Run a /v1/models call to confirm whether the model is visible at all.",
+      },
     ],
     relatedLinks: [
       { title: "Claude Fable 5 API Providers Comparison", url: "/claude-fable-5-api-providers/", reason: "Side-by-side comparison of all platforms: model IDs, API types, fallback support, and OpenAI compatibility" },
@@ -1817,9 +1825,9 @@ export const pages: PageData[] = [
     url: "/claude-fable-5-api-providers/",
     cluster: "claude-code",
     targetKeyword: "Claude Fable 5 API Providers",
-    title: "Claude Fable 5 Provider Comparison: Claude API vs Bedrock vs Vertex AI vs Foundry vs OpenRouter",
+    title: "Claude Fable 5 API Providers: Claude, Bedrock, Vertex",
     metaDescription:
-      "Claude Fable 5 across 5 platforms: model ID, API type, OpenAI compatibility, fallback support, and platform-specific setup requirements for the Claude API, Amazon Bedrock, Google Vertex AI, Microsoft Foundry, and OpenRouter.",
+      "Compare Claude Fable 5 providers by model ID, API style, OpenAI compatibility, fallback support, enablement steps, and pricing checks.",
     h1: "Claude Fable 5: API Provider Comparison",
     pageType: "guide",
     status: "full",

@@ -22,7 +22,7 @@ Description: AI API 雷达是一个中文 AI API 配置与风险分诊站，覆�
 - 可灵 API 接入指南：快手视频生成与计费方式: https://aiapiradar.com/keling-api/
 - GPT Image API 接入指南：DALL-E 与 OpenAI 图像生成: https://aiapiradar.com/gpt-image-api/
 - 图片生成 API 接入指南：官方 API、第三方聚合与可用性判断: https://aiapiradar.com/tupian-shengcheng-api/
-- MCP 是什么？模型上下文协议简介与常见配置场景: https://aiapiradar.com/mcp-shi-shenme/
+- MCP 是什么意思？Model Context Protocol 原理与用途: https://aiapiradar.com/mcp-shi-shenme/
 - Cursor MCP 配置教程：基础设置与安全注意事项: https://aiapiradar.com/cursor-mcp/
 - Claude Desktop MCP 配置教程：连接第三方工具: https://aiapiradar.com/claude-desktop-mcp/
 - Cline MCP 配置教程：扩展 AI 编程能力: https://aiapiradar.com/cline-mcp/
@@ -32,9 +32,9 @@ Description: AI API 雷达是一个中文 AI API 配置与风险分诊站，覆�
 - Claude Code API Key 配置与安全指南: https://aiapiradar.com/claude-code-api-key/
 - Claude Code Base URL 配置教程：API 地址填写指南: https://aiapiradar.com/claude-code-base-url/
 - /v1/models 能检查什么？模型列表、权限与 API 配置验证: https://aiapiradar.com/v1-models/
-- Claude Code OpenRouter 配置指南：API Key、Base URL 与模型排查: https://aiapiradar.com/claude-code-openrouter/
-- Claude Fable 5 API Access Guide: Model IDs, Refusal Behavior, and Fallback Setup: https://aiapiradar.com/claude-fable-5/
-- Claude Fable 5 Provider Comparison: Claude API vs Bedrock vs Vertex AI vs Foundry vs OpenRouter: https://aiapiradar.com/claude-fable-5-api-providers/
+- Claude Code OpenRouter 配置：Base URL、API Key 和模型名: https://aiapiradar.com/claude-code-openrouter/
+- Claude Fable 5 API Guide: Model IDs and Fallbacks: https://aiapiradar.com/claude-fable-5/
+- Claude Fable 5 API Providers: Claude, Bedrock, Vertex: https://aiapiradar.com/claude-fable-5-api-providers/
 
 ## External Links
 - AI API Doctor (检测): https://aiapidoctor.com/
